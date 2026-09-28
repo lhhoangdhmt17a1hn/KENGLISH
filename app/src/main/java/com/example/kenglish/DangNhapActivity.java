@@ -53,8 +53,8 @@ public class DangNhapActivity extends AppCompatActivity {
             startActivity(intent);
 
             overridePendingTransition(
-                    android.R.anim.fade_in,
-                    android.R.anim.fade_out
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
             );
         });
 
@@ -239,6 +239,11 @@ public class DangNhapActivity extends AppCompatActivity {
         );
 
         startActivity(intent);
+
+        overridePendingTransition(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left
+        );
 
         // Không cho bấm Back quay lại Login
         finish();

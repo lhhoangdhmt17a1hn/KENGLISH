@@ -187,6 +187,11 @@ public class CaNhan extends Fragment {
 
         startActivity(intent);
 
+        requireActivity().overridePendingTransition(
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+        );
+
         requireActivity().finish();
     }
 
