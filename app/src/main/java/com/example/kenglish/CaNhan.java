@@ -1,19 +1,33 @@
 package com.example.kenglish;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.kenglish.api.ApiService;
+import com.example.kenglish.api.RetrofitClient;
+import com.example.kenglish.model.ApiResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
  * Fragment hiển thị thông tin cá nhân và cài đặt người dùng.
  */
 public class CaNhan extends Fragment {
+
+    private LinearLayout cardDangXuat;
 
 
     /**
@@ -26,53 +40,158 @@ public class CaNhan extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(
+        View view = inflater.inflate(
                 R.layout.ca_nhan,
                 container,
                 false
         );
 
+        anhXa(view);
+        xuLySuKien();
+
+        return view;
     }
 
-    private void anhXa() {
-        // findViewById(...)
+
+    /**
+     * Ánh xạ các View cần xử lý sự kiện.
+     */
+    private void anhXa(View view) {
+        cardDangXuat = view.findViewById(R.id.card_dang_xuat);
     }
 
+
+    /**
+     * Gắn các sự kiện cho giao diện.
+     */
     private void xuLySuKien() {
-        // Gọi các hàm xử lý
+
+        cardDangXuat.setOnClickListener(v -> {
+            xuLyDangXuat();
+        });
     }
+
 
     private void xuLyNhacHoc() {
         // Mở tab nhắc học
     }
 
+
     private void xuLyCongDong() {
         // Mở link Zalo
     }
+
 
     private void xuLyLienHeHoTro() {
         // Mở trang hỗ trợ
     }
 
+
     private void xuLyChinhSach() {
         // Mở chính sách
     }
+
 
     private void xuLyDieuKhoan() {
         // Mở điều khoản
     }
 
+
     private void xuLyMangXaHoi() {
         // Facebook / Instagram
     }
 
+
+    /**
+     * Gửi yêu cầu đăng xuất tới backend.
+     */
     private void xuLyDangXuat() {
-        // Đăng xuất
+
+        // Lấy SharedPreferences đang lưu token đăng nhập
+        SharedPreferences sharedPreferences =
+                requireActivity().getSharedPreferences(
+                        "Kenglish",
+                        requireActivity().MODE_PRIVATE
+                );
+
+        String token = sharedPreferences.getString(
+                "token",
+                null
+        );
+
+        // Không có token thì đưa về màn hình đăng nhập luôn
+        if (token == null || token.isEmpty()) {
+            chuyenVeDangNhap();
+            return;
+        }
+
+        // Tạo ApiService
+        ApiService apiService =
+                RetrofitClient.getClient().create(ApiService.class);
+
+        // Gửi token theo chuẩn Bearer
+        apiService.dangXuat("Bearer " + token)
+                .enqueue(new Callback<ApiResponse>() {
+
+                    @Override
+                    public void onResponse(
+                            @NonNull Call<ApiResponse> call,
+                            @NonNull Response<ApiResponse> response) {
+
+                        if (response.isSuccessful()
+                                && response.body() != null
+                                && response.body().isThanhCong()) {
+
+                            // Backend logout thành công
+                            // → xóa token trên Android
+                            sharedPreferences
+                                    .edit()
+                                    .remove("token")
+                                    .apply();
+
+                            chuyenVeDangNhap();
+
+                        } else {
+
+                            Toast.makeText(
+                                    requireContext(),
+                                    "Đăng xuất thất bại",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                    }
+
+
+                    @Override
+                    public void onFailure(
+                            @NonNull Call<ApiResponse> call,
+                            @NonNull Throwable t) {
+
+                        Toast.makeText(
+                                requireContext(),
+                                "Không thể kết nối đến máy chủ",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+                });
     }
+
+
+    /**
+     * Chuyển về màn hình đăng nhập và đóng MainActivity.
+     */
+    private void chuyenVeDangNhap() {
+
+        Intent intent =
+                new Intent(requireContext(), DangNhapActivity.class);
+
+        startActivity(intent);
+
+        requireActivity().finish();
+    }
+
 
     private void xuLyXoaTaiKhoan() {
         // Xác nhận xóa tài khoản
     }
-
-
 }

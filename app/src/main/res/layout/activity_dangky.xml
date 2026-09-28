@@ -21,8 +21,8 @@
         <!-- Logo -->
         <ImageView
             android:id="@+id/img_logo"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:contentDescription="Logo Kenglish"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_logo_kenglish" />
@@ -33,7 +33,7 @@
             android:layout_marginTop="14dp"
             android:text="Tạo tài khoản"
             android:textColor="#FFFFFF"
-            android:textSize="25sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
@@ -42,13 +42,13 @@
             android:layout_marginTop="6dp"
             android:text="Bắt đầu hành trình học từ vựng của bạn"
             android:textColor="#94A3B8"
-            android:textSize="14sp" />
+            android:textSize="11sp" />
 
         <!-- Tên hiển thị -->
         <EditText
             android:id="@+id/edt_ten_hien_thi"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="42dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/nen_input_dangnhap"
             android:hint="Tên hiển thị"
@@ -57,13 +57,13 @@
             android:paddingEnd="18dp"
             android:textColor="#FFFFFF"
             android:textColorHint="#8391A5"
-            android:textSize="15sp" />
+            android:textSize="11sp" />
 
         <!-- Email -->
         <EditText
             android:id="@+id/edt_email"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="42dp"
             android:layout_marginTop="14dp"
             android:background="@drawable/nen_input_dangnhap"
             android:hint="Email"
@@ -72,13 +72,13 @@
             android:paddingEnd="18dp"
             android:textColor="#FFFFFF"
             android:textColorHint="#8391A5"
-            android:textSize="15sp" />
+            android:textSize="11sp" />
 
         <!-- Mật khẩu -->
         <EditText
             android:id="@+id/edt_mat_khau"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="42dp"
             android:layout_marginTop="14dp"
             android:background="@drawable/nen_input_dangnhap"
             android:hint="Mật khẩu"
@@ -87,13 +87,13 @@
             android:paddingEnd="18dp"
             android:textColor="#FFFFFF"
             android:textColorHint="#8391A5"
-            android:textSize="15sp" />
+            android:textSize="11sp" />
 
         <!-- Xác nhận mật khẩu -->
         <EditText
             android:id="@+id/edt_xac_nhan_mat_khau"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="42dp"
             android:layout_marginTop="14dp"
             android:background="@drawable/nen_input_dangnhap"
             android:hint="Xác nhận mật khẩu"
@@ -102,7 +102,7 @@
             android:paddingEnd="18dp"
             android:textColor="#FFFFFF"
             android:textColorHint="#8391A5"
-            android:textSize="15sp" />
+            android:textSize="11sp" />
 
         <!-- Submit -->
         <TextView
@@ -111,31 +111,50 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textColor="#FF6B6B"
-            android:textSize="13sp"
+            android:textSize="11sp"
             android:visibility="gone" />
 
         <TextView
             android:id="@+id/btn_dang_ky"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="42dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/nen_nut_xacnhan"
             android:gravity="center"
             android:text="Đăng ký"
             android:textColor="#182230"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
         <!-- Quay về đăng nhập -->
-        <TextView
-            android:id="@+id/txt_dang_nhap"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginTop="12dp"
             android:gravity="center"
-            android:text="Đã có tài khoản?  Đăng nhập"
-            android:textColor="#CBD5E1"
-            android:textSize="14sp" />
+            android:orientation="horizontal">
+
+            <!-- Chữ mô tả, không thể bấm -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đã có tài khoản? "
+                android:textColor="#CBD5E1"
+                android:textSize="11sp" />
+
+            <!-- Chỉ phần này có thể bấm -->
+            <TextView
+                android:id="@+id/txt_dang_nhap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="Đăng nhập"
+                android:textColor="#FFD43B"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

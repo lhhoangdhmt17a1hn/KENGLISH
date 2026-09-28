@@ -187,6 +187,8 @@ public class DangNhapActivity extends AppCompatActivity {
                                 );
 
                                 txtLoiDangNhap.setVisibility(View.VISIBLE);
+                                edtEmail.setText("");
+                                edtMatKhau.setText("");
                             }
 
                         } else {

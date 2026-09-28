@@ -19,8 +19,8 @@
         android:paddingBottom="32dp">
 
         <ImageView
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:contentDescription="Logo Kenglish"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_logo_kenglish" />
@@ -31,7 +31,7 @@
             android:layout_marginTop="20dp"
             android:text="Xác thực email"
             android:textColor="#FFFFFF"
-            android:textSize="25sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
@@ -42,12 +42,12 @@
             android:gravity="center"
             android:text="Mã xác thực đã được gửi tới email của bạn"
             android:textColor="#94A3B8"
-            android:textSize="14sp" />
+            android:textSize="11sp" />
 
         <EditText
             android:id="@+id/edt_ma_xac_thuc"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:layout_marginTop="36dp"
             android:background="@drawable/nen_input_dangnhap"
             android:gravity="center"
@@ -57,30 +57,47 @@
             android:letterSpacing="0.25"
             android:textColor="#FFFFFF"
             android:textColorHint="#8391A5"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/btn_xac_thuc"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="48dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/nen_nut_xacnhan"
             android:gravity="center"
             android:text="Xác thực"
             android:textColor="#182230"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txt_gui_lai"
+
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:text="Không nhận được mã?  Gửi lại"
-            android:textColor="#CBD5E1"
-            android:textSize="14sp" />
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Không nhận được mã? "
+                android:textColor="#CBD5E1"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/txt_gui_lai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Gửi lại"
+                android:textColor="#FFD43B"
+                android:textSize="11sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

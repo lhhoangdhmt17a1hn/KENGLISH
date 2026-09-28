@@ -8,6 +8,7 @@ import com.example.kenglish.model.XacThucEmailRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface ApiService {
@@ -25,5 +26,10 @@ public interface ApiService {
     @POST("auth/dang_nhap.php")
     Call<DangNhapResponse> dangNhap(
             @Body DangNhapRequest request
+    );
+
+    @POST("auth/dang_xuat.php")
+    Call<ApiResponse> dangXuat(
+            @Header("Authorization") String token
     );
 }
