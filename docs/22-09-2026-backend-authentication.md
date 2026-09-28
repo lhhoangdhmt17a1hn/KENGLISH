@@ -1,976 +1,1265 @@
-# Kenglish Development Notes - 22/09/2026
+# 🔐 Kenglish Authentication
 
-## 1. Mục tiêu của buổi học
+Hệ thống Authentication cho ứng dụng **Kenglish**, xây dựng bằng **Node.js + Express + MySQL + JWT**.
 
-Trong buổi này, Kenglish bắt đầu xây dựng Backend Authentication thay vì chỉ sử dụng dữ liệu giả trên Android.
+Authentication hiện hỗ trợ:
 
-Các chức năng đã hoàn thành:
-
-- Kết nối PHP với MySQL.
-- Đăng ký tài khoản.
-- Mã hóa mật khẩu.
-- Gửi mã OTP qua Gmail.
-- Xác thực email bằng OTP.
-- OTP có thời gian hết hạn.
-- Gửi lại OTP.
-- Đăng nhập.
-- Tạo authentication token.
-- Lưu phiên đăng nhập.
-- Kiểm tra token.
-- Đăng xuất bằng cách hủy phiên.
-- Tách thông tin Gmail/App Password khỏi source code.
-- Đưa backend vào cùng repository Kenglish.
-- Dùng Windows Junction để XAMPP chạy trực tiếp backend trong repository.
+- Đăng ký tài khoản
+- Hash mật khẩu bằng bcrypt
+- Gửi OTP qua email
+- Xác thực email
+- Gửi lại OTP
+- Đăng nhập
+- JWT Authentication
+- Middleware bảo vệ API
+- Đăng xuất
 
 ---
 
-# 2. Kiến trúc Backend
+# 1. Công nghệ sử dụng
 
-Kenglish hiện sử dụng kiến trúc:
+| Công nghệ | Chức năng |
+|---|---|
+| Node.js | Runtime backend |
+| Express.js | Xây dựng REST API |
+| MySQL | Lưu trữ dữ liệu |
+| mysql2 | Kết nối Node.js với MySQL |
+| bcrypt | Hash và kiểm tra mật khẩu |
+| jsonwebtoken | Tạo và xác thực JWT |
+| Nodemailer | Gửi OTP qua email |
+| dotenv | Quản lý biến môi trường |
+| cors | Cấu hình Cross-Origin Resource Sharing |
 
-```text
-Android App
-    ↓
-HTTP Request / JSON
-    ↓
-PHP REST API
-    ↓
-MySQL
+Cài đặt dependency:
+
+```bash
+npm install express mysql2 bcrypt jsonwebtoken nodemailer dotenv cors
 ```
-
-Android không kết nối trực tiếp tới MySQL.
-
-Ví dụ sau này Android đăng nhập:
-
-```text
-Android
-   ↓
-POST /auth/dang_nhap.php
-   ↓
-PHP kiểm tra tài khoản
-   ↓
-MySQL
-   ↓
-PHP trả JSON
-   ↓
-Android
-```
-
-Lý do:
-
-- Không để thông tin MySQL trong ứng dụng Android.
-- Backend chịu trách nhiệm xác thực và xử lý dữ liệu.
-- Android chỉ giao tiếp với backend thông qua API.
-- Sau này có thể thay Android bằng Web/iOS mà vẫn sử dụng cùng backend.
 
 ---
 
-# 3. Database
-
-Database:
+# 2. Cấu trúc Backend
 
 ```text
-kenglish
+backend/
+│
+├── assets/
+│   └── images/
+│       └── logo.png
+│
+├── config/
+│   └── database.js
+│
+├── controllers/
+│   └── authControllers/
+│       ├── dangKyController.js
+│       ├── xacThucEmailController.js
+│       ├── guiLaiMaController.js
+│       ├── dangNhapController.js
+│       └── dangXuatController.js
+│
+├── middleware/
+│   └── xacThucToken.js
+│
+├── routes/
+│   └── authRoutes.js
+│
+├── services/
+│   └── emailService.js
+│
+├── .env
+├── .gitignore
+├── package.json
+└── server.js
 ```
 
-## Bảng `nguoi_dung`
-
-Dùng để lưu tài khoản người dùng.
-
-Các dữ liệu quan trọng:
+### Vai trò
 
 ```text
-id
-ten_hien_thi
-email
-mat_khau
-email_da_xac_thuc
-ma_xac_thuc
-het_han_ma_xac_thuc
-ngay_tao
+routes/
+→ Định nghĩa endpoint API.
+
+controllers/
+→ Xử lý nghiệp vụ.
+
+middleware/
+→ Xử lý request trước khi tới controller.
+
+services/
+→ Các chức năng dùng chung như gửi email.
+
+config/
+→ Cấu hình database.
+
+assets/
+→ Tài nguyên backend như logo email.
 ```
 
-### Không lưu mật khẩu gốc
+Ví dụ request:
 
-Mật khẩu được hash bằng:
+```text
+POST /auth/dang-nhap
+        ↓
+authRoutes.js
+        ↓
+dangNhapController.js
+        ↓
+MySQL
+```
 
-```php
-$matKhauHash = password_hash(
-    $matKhau,
-    PASSWORD_DEFAULT
-);
+---
+
+# 3. Environment Variables
+
+Các thông tin cấu hình và secret được lưu trong:
+
+```text
+.env
 ```
 
 Ví dụ:
 
-```text
-User nhập:
-123456
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=kenglish
+DB_PORT=3306
 
-Database:
-$2y$10$...
+PORT=3000
+
+EMAIL_GUI=example@gmail.com
+EMAIL_APP_PASSWORD=your_app_password
+
+JWT_SECRET=your_random_secret
+JWT_EXPIRES_IN=30d
 ```
 
-Không thể lấy lại mật khẩu gốc từ hash.
+Load `.env`:
 
-Khi đăng nhập sử dụng:
-
-```php
-password_verify(
-    $matKhau,
-    $nguoiDung["mat_khau"]
-);
-```
-
-Không hash mật khẩu mới rồi so sánh hai chuỗi hash.
-
----
-
-# 4. Nhận JSON trong PHP
-
-Android/Postman gửi:
-
-```json
-{
-    "email": "example@gmail.com",
-    "mat_khau": "123456"
-}
-```
-
-PHP đọc raw request:
-
-```php
-file_get_contents("php://input")
-```
-
-Sau đó chuyển JSON thành PHP Array:
-
-```php
-$duLieu = json_decode(
-    file_get_contents("php://input"),
-    true
-);
-```
-
-Có thể lấy dữ liệu:
-
-```php
-$email = $duLieu["email"];
-```
-
-Ghi nhớ:
-
-```text
-json_decode()
-JSON → PHP
-
-json_encode()
-PHP → JSON
-```
-
----
-
-# 5. Prepared Statement
-
-Không viết trực tiếp:
-
-```php
-$sql = "SELECT * FROM nguoi_dung WHERE email = '$email'";
+```js
+require("dotenv").config();
 ```
 
 Sử dụng:
 
-```php
-$cauLenh = $ketNoi->prepare(
-    "SELECT *
-     FROM nguoi_dung
-     WHERE email = ?"
-);
-
-$cauLenh->bind_param(
-    "s",
-    $email
-);
+```js
+process.env.JWT_SECRET
+process.env.DB_HOST
+process.env.EMAIL_GUI
 ```
 
-Mục đích chính:
+## Không commit `.env`
 
-- Tránh SQL Injection.
-- Tách SQL khỏi dữ liệu người dùng.
+`.gitignore`:
 
-Các kiểu thường dùng trong `bind_param`:
+```gitignore
+backend/node_modules/
+backend/.env
+```
+
+Các thông tin như:
+
+- Database password
+- Gmail App Password
+- JWT Secret
+
+không được đưa lên GitHub.
+
+---
+
+# 4. Database Connection
+
+File:
 
 ```text
-s = string
-i = integer
-d = double
-b = blob
+config/database.js
 ```
 
-Ví dụ:
+```js
+const mysql = require("mysql2/promise");
 
-```php
-$cauLenh->bind_param(
-    "iss",
-    $idNguoiDung,
-    $tokenHash,
-    $hetHan
+const ketNoi = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
+    charset: "utf8mb4"
+});
+
+module.exports = ketNoi;
+```
+
+Query:
+
+```js
+const [ketQua] = await ketNoi.execute(
+    "SELECT * FROM nguoi_dung WHERE email = ?",
+    [email]
 );
+```
+
+Sử dụng parameter:
+
+```sql
+?
+```
+
+thay vì nối trực tiếp dữ liệu người dùng vào SQL.
+
+Điều này giúp hạn chế **SQL Injection**.
+
+---
+
+# 5. Authentication Flow
+
+```text
+ĐĂNG KÝ
+   ↓
+Validate dữ liệu
+   ↓
+Kiểm tra email tồn tại
+   ↓
+Hash mật khẩu bằng bcrypt
+   ↓
+Tạo OTP 6 số
+   ↓
+Lưu tài khoản vào MySQL
+   ↓
+Gửi OTP qua Nodemailer
+   ↓
+XÁC THỰC EMAIL
+   ↓
+Kiểm tra OTP + thời hạn
+   ↓
+email_da_xac_thuc = 1
+   ↓
+ĐĂNG NHẬP
+   ↓
+Kiểm tra email
+   ↓
+bcrypt.compare()
+   ↓
+Kiểm tra email đã xác thực
+   ↓
+jwt.sign()
+   ↓
+JWT
+   ↓
+Android lưu JWT
+   ↓
+Authorization: Bearer <JWT>
+   ↓
+Middleware
+   ↓
+jwt.verify()
+   ↓
+Protected API
 ```
 
 ---
 
-# 6. Luồng đăng ký
+# 6. Đăng ký
 
-API:
+### Endpoint
 
-```text
-POST /auth/dang_ky.php
+```http
+POST /auth/dang-ky
 ```
 
-Luồng xử lý:
-
-```text
-Nhận JSON
-   ↓
-Kiểm tra dữ liệu
-   ↓
-Kiểm tra email hợp lệ
-   ↓
-Kiểm tra password
-   ↓
-Kiểm tra email đã tồn tại chưa
-   ↓
-Hash password
-   ↓
-Sinh OTP
-   ↓
-Tạo thời gian hết hạn OTP
-   ↓
-INSERT user vào MySQL
-   ↓
-Gửi OTP qua Gmail
-```
-
-OTP được tạo bằng:
-
-```php
-$maXacThuc = random_int(
-    100000,
-    999999
-);
-```
-
-OTP có hiệu lực 5 phút:
-
-```php
-$hetHanMaXacThuc = date(
-    "Y-m-d H:i:s",
-    time() + 300
-);
-```
-
----
-
-# 7. Gửi OTP bằng Gmail
-
-Kenglish sử dụng:
-
-```text
-PHPMailer
-+
-Gmail SMTP
-```
-
-Cài PHPMailer bằng Composer.
-
-Package được khai báo trong:
-
-```text
-composer.json
-composer.lock
-```
-
-Thư mục:
-
-```text
-vendor/
-```
-
-được Composer tạo và không cần đưa lên Git.
-
-SMTP:
-
-```text
-smtp.gmail.com
-Port 587
-STARTTLS
-```
-
-Kenglish không sử dụng mật khẩu Gmail thông thường.
-
-Thay vào đó sử dụng:
-
-```text
-Google App Password
-```
-
-App Password cho phép backend xác thực với Gmail SMTP để gửi email.
-
----
-
-# 8. Xác thực email
-
-API:
-
-```text
-POST /auth/xac_thuc_email.php
-```
-
-Client gửi:
+### Request
 
 ```json
 {
+    "ten_hien_thi": "Kien",
     "email": "example@gmail.com",
-    "ma_xac_thuc": "123456"
+    "mat_khau": "123456"
 }
 ```
 
 Backend thực hiện:
 
 ```text
-Tìm tài khoản
-   ↓
-Kiểm tra đã xác thực chưa
-   ↓
-So sánh OTP
-   ↓
-Kiểm tra OTP hết hạn chưa
-   ↓
-email_da_xac_thuc = 1
-   ↓
-Xóa OTP
-   ↓
-Xóa thời gian hết hạn
+1. Nhận JSON
+2. Chuẩn hóa dữ liệu
+3. Kiểm tra trường rỗng
+4. Validate email
+5. Kiểm tra độ dài mật khẩu
+6. Kiểm tra email tồn tại
+7. Hash mật khẩu
+8. Tạo OTP
+9. Tạo thời gian hết hạn OTP
+10. INSERT người dùng
+11. Gửi OTP
 ```
 
-Sau khi thành công:
+---
+
+# 7. Password Hashing
+
+Kenglish không lưu mật khẩu gốc.
 
 ```text
+123456
+   ↓
+bcrypt.hash()
+   ↓
+$2b$10$...
+   ↓
+MySQL
+```
+
+Hash password:
+
+```js
+const matKhauHash = await bcrypt.hash(
+    matKhau,
+    10
+);
+```
+
+Database chỉ lưu hash.
+
+### Kiểm tra password
+
+Khi đăng nhập:
+
+```js
+const matKhauDung = await bcrypt.compare(
+    matKhau,
+    nguoiDung.mat_khau
+);
+```
+
+Flow:
+
+```text
+Password người dùng nhập
+          ↓
+    bcrypt.compare()
+          ↑
+   Hash trong MySQL
+          ↓
+      true / false
+```
+
+---
+
+# 8. OTP Verification
+
+OTP được tạo bằng module `crypto`:
+
+```js
+const crypto = require("crypto");
+
+const maXacThuc = crypto.randomInt(
+    100000,
+    1000000
+);
+```
+
+Ví dụ:
+
+```text
+381592
+```
+
+OTP có hiệu lực trong 5 phút:
+
+```js
+const hetHanMaXacThuc =
+    new Date(Date.now() + 5 * 60 * 1000);
+```
+
+Database lưu:
+
+```text
+ma_xac_thuc
+het_han_ma_xac_thuc
+email_da_xac_thuc
+```
+
+---
+
+# 9. Gửi OTP qua Email
+
+Kenglish sử dụng:
+
+```text
+Node.js
+   ↓
+Nodemailer
+   ↓
+Gmail SMTP
+   ↓
+Email người dùng
+```
+
+Cấu hình:
+
+```js
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+
+    auth: {
+        user: process.env.EMAIL_GUI,
+        pass: process.env.EMAIL_APP_PASSWORD
+    }
+});
+```
+
+Gửi email:
+
+```js
+await transporter.sendMail({
+    from: `"Kenglish" <${process.env.EMAIL_GUI}>`,
+    to: email,
+    subject: "Kenglish - Email Verification",
+    html: `...`
+});
+```
+
+Gmail App Password được lưu trong `.env`.
+
+---
+
+# 10. Xác thực Email
+
+### Endpoint
+
+```http
+POST /auth/xac-thuc-email
+```
+
+### Request
+
+```json
+{
+    "email": "example@gmail.com",
+    "ma_xac_thuc": "381592"
+}
+```
+
+Backend:
+
+```text
+Tìm tài khoản
+      ↓
+Tài khoản tồn tại?
+      ↓
+Email đã xác thực?
+      ↓
+OTP đúng?
+      ↓
+OTP còn hạn?
+      ↓
+     YES
+      ↓
 email_da_xac_thuc = 1
+      ↓
 ma_xac_thuc = NULL
 het_han_ma_xac_thuc = NULL
 ```
 
 ---
 
-# 9. Gửi lại OTP
+# 11. Gửi lại OTP
 
-API:
+### Endpoint
 
-```text
-POST /auth/gui_lai_ma_xac_thuc.php
+```http
+POST /auth/gui-lai-ma-xac-thuc
 ```
 
-Luồng:
-
-```text
-Nhận email
-   ↓
-Tìm account
-   ↓
-Kiểm tra account chưa verify
-   ↓
-Sinh OTP mới
-   ↓
-Tạo expiry mới
-   ↓
-UPDATE database
-   ↓
-Gửi email mới
-```
-
-OTP cũ sẽ không còn được sử dụng.
-
----
-
-# 10. Đăng nhập
-
-API:
-
-```text
-POST /auth/dang_nhap.php
-```
-
-Client gửi:
+### Request
 
 ```json
 {
-    "email": "example@gmail.com",
-    "mat_khau": "123456"
+    "email": "example@gmail.com"
 }
-```
-
-Luồng:
-
-```text
-Tìm email
-   ↓
-password_verify()
-   ↓
-Kiểm tra email đã verify
-   ↓
-Tạo authentication token
-   ↓
-Hash token
-   ↓
-Lưu session vào MySQL
-   ↓
-Trả raw token cho client
-```
-
----
-
-# 11. Authentication Token
-
-Token được tạo bằng:
-
-```php
-$token = bin2hex(
-    random_bytes(32)
-);
-```
-
-Sau đó hash:
-
-```php
-$tokenHash = hash(
-    "sha256",
-    $token
-);
-```
-
-Điểm quan trọng:
-
-```text
-Android
-    giữ RAW TOKEN
-
-Database
-    giữ TOKEN HASH
-```
-
-Ví dụ:
-
-```text
-Android:
-a7c8f1...
-
-              ↓ SHA-256
-
-Database:
-934b8e...
-```
-
-Không cần lưu raw token trong database.
-
-Nếu database bị lộ, attacker không lấy ngay được các token đang hoạt động.
-
----
-
-# 12. Bảng phiên đăng nhập
-
-Bảng:
-
-```text
-phien_dang_nhap
-```
-
-Chứa:
-
-```text
-id
-nguoi_dung_id
-token_hash
-het_han
-ngay_tao
-```
-
-Mỗi lần đăng nhập thành công có thể tạo một phiên.
-
-Token hiện có hiệu lực:
-
-```text
-30 ngày
-```
-
-Một người có thể có nhiều phiên nếu đăng nhập trên nhiều thiết bị.
-
-Ví dụ:
-
-```text
-User 15
-├── Laptop
-├── Phone
-└── Tablet
-```
-
-→ có thể có 3 session.
-
-Session hết hạn có thể xóa:
-
-```sql
-DELETE FROM phien_dang_nhap
-WHERE het_han < NOW();
-```
-
----
-
-# 13. Bearer Token
-
-Các API cần đăng nhập sẽ nhận:
-
-```http
-Authorization: Bearer TOKEN
-```
-
-Ví dụ:
-
-```text
-Authorization: Bearer abc123...
 ```
 
 Backend:
 
 ```text
-Nhận token
-   ↓
-SHA-256
-   ↓
-Tìm token_hash trong database
-   ↓
-Kiểm tra chưa hết hạn
-   ↓
-Xác định nguoi_dung_id
+Tìm tài khoản
+      ↓
+Kiểm tra trạng thái xác thực
+      ↓
+Tạo OTP mới
+      ↓
+Tạo thời hạn mới
+      ↓
+UPDATE MySQL
+      ↓
+Gửi OTP mới
 ```
 
-File dùng chung:
+Ví dụ:
 
 ```text
-auth/kiem_tra_token.php
+OTP cũ: 123456
+       ↓
+Gửi lại OTP
+       ↓
+OTP mới: 847291
 ```
 
-sẽ giúp các API sau này xác định:
-
-> Request này thuộc về người dùng nào?
-
-Ví dụ sau này:
+Sau khi tạo OTP mới:
 
 ```text
-POST /bo-tu/tao_bo_tu.php
-Authorization: Bearer ...
+123456 → Không còn hợp lệ
+847291 → Hợp lệ
 ```
-
-Backend có thể biết bộ từ phải thuộc user nào mà không cần client tự gửi `nguoi_dung_id`.
 
 ---
 
-# 14. Logout
+# 12. Đăng nhập
 
-API:
+### Endpoint
 
-```text
-POST /auth/dang_xuat.php
+```http
+POST /auth/dang-nhap
 ```
 
-Logout không chỉ đơn giản là:
+### Request
 
-```text
-Android xóa isLoggedIn
+```json
+{
+    "email": "example@gmail.com",
+    "mat_khau": "123456"
+}
 ```
 
-Backend phải thu hồi session.
-
-Luồng:
+Backend:
 
 ```text
-Authorization: Bearer TOKEN
-          ↓
-Lấy raw token
-          ↓
-SHA-256
-          ↓
-DELETE token_hash khỏi phien_dang_nhap
+Tìm tài khoản
+      ↓
+bcrypt.compare()
+      ↓
+Password đúng?
+      ↓
+Email đã xác thực?
+      ↓
+jwt.sign()
+      ↓
+Trả JWT cho client
 ```
 
-Sau khi DELETE:
+---
+
+# 13. JSON Web Token
+
+JWT là viết tắt của:
 
 ```text
-Token cũ
+JSON Web Token
+```
+
+Token có dạng:
+
+```text
+xxxxx.yyyyy.zzzzz
+```
+
+Gồm:
+
+```text
+HEADER.PAYLOAD.SIGNATURE
+```
+
+## Header
+
+Ví dụ:
+
+```json
+{
+    "alg": "HS256",
+    "typ": "JWT"
+}
+```
+
+## Payload
+
+Kenglish hiện sử dụng:
+
+```json
+{
+    "id": 5,
+    "email": "example@gmail.com"
+}
+```
+
+JWT còn chứa các trường thời gian như:
+
+```text
+iat
+→ Issued At
+
+exp
+→ Expiration Time
+```
+
+## Signature
+
+Backend sử dụng `JWT_SECRET` để ký token.
+
+```text
+Header
+   +
+Payload
+   +
+JWT_SECRET
    ↓
-không còn trong database
-   ↓
-không thể xác thực request
+Signature
 ```
 
-Đây chính là revoke session.
+Signature giúp backend phát hiện token đã bị chỉnh sửa.
 
-Đã kiểm tra bằng Postman:
+---
+
+# 14. JWT_SECRET
+
+`.env` chứa:
+
+```env
+JWT_SECRET=your_secret
+```
+
+`JWT_SECRET` không phải token của người dùng.
+
+Nó là secret của server dùng cho:
+
+```js
+jwt.sign()
+```
+
+và:
+
+```js
+jwt.verify()
+```
+
+Flow:
 
 ```text
+JWT_SECRET
+    ↓
+jwt.sign()
+    ↓
+JWT
+    ↓
+Client
+    ↓
+JWT
+    ↓
+jwt.verify()
+    ↑
+JWT_SECRET
+```
+
+`JWT_SECRET` không bao giờ được gửi cho Android.
+
+---
+
+# 15. JWT không phải Encryption
+
+JWT payload có thể được decode.
+
+Do đó không lưu trong payload:
+
+```text
+❌ Password
+❌ OTP
+❌ JWT_SECRET
+❌ Email App Password
+❌ Các secret khác
+```
+
+Có thể lưu các claim cần thiết như:
+
+```text
+✓ User ID
+✓ Email
+✓ Role
+```
+
+JWT được **ký (signed)** để bảo vệ tính toàn vẹn.
+
+JWT không mặc định **mã hóa (encrypted)** payload.
+
+---
+
+# 16. Tạo JWT khi đăng nhập
+
+Sau khi xác thực tài khoản thành công:
+
+```js
+const token = jwt.sign(
+    {
+        id: nguoiDung.id,
+        email: nguoiDung.email
+    },
+    process.env.JWT_SECRET,
+    {
+        expiresIn:
+            process.env.JWT_EXPIRES_IN || "30d"
+    }
+);
+```
+
+Flow:
+
+```text
+User ID + Email
+       +
+JWT_SECRET
+       +
+Expiration
+       ↓
+   jwt.sign()
+       ↓
+      JWT
+```
+
+JWT được backend tạo tại thời điểm đăng nhập.
+
+JWT không được lấy từ database.
+
+---
+
+# 17. Login Response
+
+Ví dụ:
+
+```json
+{
+    "thanh_cong": true,
+    "thong_bao": "Đăng nhập thành công",
+
+    "token": "eyJhbGciOi...",
+
+    "nguoi_dung": {
+        "id": 5,
+        "ten_hien_thi": "Kien",
+        "email": "example@gmail.com"
+    }
+}
+```
+
+Client lưu:
+
+```text
+token
+```
+
+để sử dụng cho những request yêu cầu đăng nhập.
+
+---
+
+# 18. Bearer Authentication
+
+Client gửi JWT trong HTTP Header:
+
+```http
+Authorization: Bearer <JWT>
+```
+
+Ví dụ:
+
+```http
+Authorization: Bearer eyJhbGciOiJIUzI1Ni...
+```
+
+Flow:
+
+```text
+Android
+   ↓
+Authorization Header
+   ↓
+Bearer JWT
+   ↓
+Express
+   ↓
+Authentication Middleware
+```
+
+Backend xác định người dùng dựa trên JWT đã được xác thực.
+
+Không nên tin `nguoi_dung_id` do client tự gửi để xác định danh tính.
+
+---
+
+# 19. Authentication Middleware
+
+File:
+
+```text
+middleware/xacThucToken.js
+```
+
+Middleware đứng giữa request và controller:
+
+```text
+Request
+   ↓
+xacThucToken
+   ↓
+JWT hợp lệ?
+ ┌──────┴──────┐
+ NO            YES
+ ↓              ↓
+401         req.nguoiDung
+                ↓
+             next()
+                ↓
+            Controller
+```
+
+Ví dụ:
+
+```js
+const jwt = require("jsonwebtoken");
+
+function xacThucToken(req, res, next) {
+    try {
+        const authorization =
+            req.headers.authorization;
+
+        if (!authorization) {
+            return res.status(401).json({
+                thanh_cong: false,
+                thong_bao: "Bạn chưa đăng nhập"
+            });
+        }
+
+        const [loaiToken, token] =
+            authorization.split(" ");
+
+        if (loaiToken !== "Bearer" || !token) {
+            return res.status(401).json({
+                thanh_cong: false,
+                thong_bao: "Token không hợp lệ"
+            });
+        }
+
+        const duLieuToken = jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        );
+
+        req.nguoiDung = duLieuToken;
+
+        next();
+
+    } catch (error) {
+        return res.status(401).json({
+            thanh_cong: false,
+            thong_bao:
+                "Token không hợp lệ hoặc đã hết hạn"
+        });
+    }
+}
+
+module.exports = xacThucToken;
+```
+
+---
+
+# 20. `req.nguoiDung`
+
+Sau:
+
+```js
+const duLieuToken = jwt.verify(
+    token,
+    process.env.JWT_SECRET
+);
+```
+
+payload có thể là:
+
+```js
+{
+    id: 5,
+    email: "example@gmail.com",
+    iat: 1790570000,
+    exp: 1793162000
+}
+```
+
+Middleware gắn nó vào request:
+
+```js
+req.nguoiDung = duLieuToken;
+```
+
+Controller phía sau có thể:
+
+```js
+const idNguoiDung = req.nguoiDung.id;
+```
+
+Nhờ đó controller biết người đang thực hiện request là ai.
+
+---
+
+# 21. Protected Route
+
+Ví dụ API chỉ dành cho người đã đăng nhập:
+
+```js
+router.get(
+    "/thong-tin-ca-nhan",
+    xacThucToken,
+    thongTinCaNhan
+);
+```
+
+Express chạy:
+
+```text
+Request
+   ↓
+xacThucToken()
+   ↓
+JWT sai
+   ↓
+401 Unauthorized
+```
+
+hoặc:
+
+```text
+Request
+   ↓
+xacThucToken()
+   ↓
+JWT đúng
+   ↓
+next()
+   ↓
+thongTinCaNhan()
+```
+
+---
+
+# 22. Đăng xuất
+
+### Endpoint
+
+```http
+POST /auth/dang-xuat
+```
+
+Với JWT stateless hiện tại, backend không lưu từng access token trong database.
+
+Do đó logout chủ yếu là:
+
+```text
+User bấm đăng xuất
+        ↓
+Android gọi API logout
+        ↓
+Backend xác thực JWT
+        ↓
+Response thành công
+        ↓
+Android xóa JWT đã lưu
+        ↓
+Quay về màn hình đăng nhập
+```
+
+Controller:
+
+```js
+function dangXuat(req, res) {
+    return res.json({
+        thanh_cong: true,
+        thong_bao: "Đăng xuất thành công"
+    });
+}
+
+module.exports = dangXuat;
+```
+
+Route được bảo vệ:
+
+```js
+router.post(
+    "/dang-xuat",
+    xacThucToken,
+    dangXuat
+);
+```
+
+---
+
+# 23. Hạn chế của JWT Stateless hiện tại
+
+Nếu JWT có thời hạn:
+
+```env
+JWT_EXPIRES_IN=30d
+```
+
+thì JWT đã phát hành có thể vẫn hợp lệ cho đến khi `exp` dù người dùng đã logout.
+
+Android xóa JWT không làm JWT đó bị revoke trên server.
+
+Ví dụ:
+
+```text
+28/09
 Login
-→ session xuất hiện
+↓
+JWT được tạo
+↓
+Hết hạn 28/10
 
+29/09
 Logout
-→ session biến mất
-```
-
----
-
-# 15. Bảo vệ Gmail App Password
-
-Ban đầu Gmail/App Password nằm trực tiếp trong:
-
-```text
-gui_email.php
-```
-
-Điều này nguy hiểm nếu push lên GitHub.
-
-Đã tách thành:
-
-```text
-config/
-├── gui_email.php
-└── email_secret.php
-```
-
-`gui_email.php` chứa logic:
-
-```php
-$mail->Username = EMAIL_GUI;
-$mail->Password = EMAIL_APP_PASSWORD;
-```
-
-`email_secret.php` chứa dữ liệu thật:
-
-```php
-define(
-    "EMAIL_GUI",
-    "..."
-);
-
-define(
-    "EMAIL_APP_PASSWORD",
-    "..."
-);
-```
-
-`email_secret.php` KHÔNG được commit.
-
-`.gitignore`:
-
-```gitignore
-/backend/config/email_secret.php
-/backend/vendor/
-/backend/composer.phar
-
-.env
-.env.*
-```
-
-Nguyên tắc:
-
-```text
-Logic/code          → GitHub
-Secret/password     → không GitHub
-```
-
----
-
-# 16. Composer và Git
-
-Đưa lên Git:
-
-```text
-composer.json       YES
-composer.lock       YES
-```
-
-Không đưa:
-
-```text
-vendor/             NO
-composer.phar       NO
-```
-
-Sau khi clone project, dependencies có thể được cài lại bằng Composer.
-
-Do đó không cần lưu toàn bộ thư viện PHPMailer trong repository.
-
----
-
-# 17. Backend và repository Kenglish
-
-Ban đầu backend nằm ở:
-
-```text
-C:\xampp\htdocs\kenglish_api
-```
-
-Trong khi Android nằm ở repository Kenglish.
-
-Nếu giữ hai nơi sẽ dễ xảy ra:
-
-```text
-Sửa backend trong XAMPP
 ↓
-quên copy
+Android xóa JWT
+
+JWT đã phát hành
 ↓
-Git chứa phiên bản cũ
+Vẫn hợp lệ tới 28/10 nếu có bản sao
 ```
 
-Vì vậy backend đã được chuyển vào:
-
-```text
-Kenglish/
-└── backend/
-```
+Đây là giới hạn cần lưu ý của thiết kế JWT stateless hiện tại.
 
 ---
 
-# 18. Windows Junction
+# 24. Nâng cấp Authentication sau này
 
-Apache/XAMPP mặc định phục vụ file trong:
-
-```text
-C:\xampp\htdocs
-```
-
-Nhưng source thật hiện nằm trong repository.
-
-Giải pháp sử dụng Windows Junction:
-
-```cmd
-mklink /J "C:\xampp\htdocs\kenglish_api" "D:\master\PERSONAL\Study\LTDD\Kenglish\backend"
-```
-
-Kết quả:
+Kiến trúc có thể nâng cấp thành:
 
 ```text
-C:\xampp\htdocs\kenglish_api
-             │
-             │ Junction
-             ↓
-Kenglish\backend
+Access Token
+JWT
+~15 phút
+
++
+
+Refresh Token
+~30 ngày
 ```
 
-Chỉ có **một source backend thật**.
-
-Do đó:
+Flow:
 
 ```text
-Sửa Kenglish/backend
-        ↓
-Git thấy thay đổi
-
-đồng thời
-
-XAMPP cũng chạy thay đổi đó
-```
-
-Không cần copy file qua lại.
-
----
-
-# 19. Kiểm thử bằng Postman
-
-Backend đã được test bằng Postman.
-
-Ví dụ login:
-
-```text
-POST
-http://localhost/kenglish_api/auth/dang_nhap.php
-```
-
-Body:
-
-```json
-{
-    "email": "example@gmail.com",
-    "mat_khau": "123456"
-}
-```
-
-Lưu ý:
-
-API nhận JSON phải sử dụng đúng HTTP method.
-
-Ví dụ login dùng:
-
-```text
-POST
-```
-
-không phải:
-
-```text
-GET
-```
-
-JSON cũng phải đúng cú pháp.
-
-Sai:
-
-```json
-{
-    "email": "example@gmail.com,
-    "mat_khau": "123456"
-}
-```
-
-Đúng:
-
-```json
-{
-    "email": "example@gmail.com",
-    "mat_khau": "123456"
-}
-```
-
----
-
-# 20. Auth flow hiện tại của Kenglish
-
-Toàn bộ hệ thống hiện tại:
-
-```text
-              ┌──────────────┐
-              │   Register   │
-              └──────┬───────┘
-                     ↓
-              Hash Password
-                     ↓
-                 Save User
-                     ↓
-                Generate OTP
-                     ↓
-               Gmail SMTP
-                     ↓
-              Verify Email
-                     ↓
-                  Login
-                     ↓
-             password_verify
-                     ↓
-              Generate Token
-                     ↓
-               Hash Token
-                     ↓
-              Save Session
-                     ↓
-          ┌────────────────────┐
-          │ Authenticated User │
-          └─────────┬──────────┘
-                    ↓
-              Protected APIs
-                    ↓
-                  Logout
-                    ↓
-              Delete Session
-```
-
----
-
-# 21. Những thứ chưa làm
-
-Authentication hiện tại đủ dùng cho phiên bản đầu của đồ án.
-
-Các phần có thể cải thiện sau:
-
-- Rate limit đăng nhập.
-- Giới hạn số lần nhập OTP.
-- Cooldown gửi lại OTP.
-- Hash OTP trong database.
-- Forgot Password.
-- Reset Password.
-- Xóa session hết hạn tự động.
-- HTTP status code chuẩn hơn.
-- HTTPS khi deploy.
-- Quản lý nhiều thiết bị.
-- Chuyển secret sang `.env` nếu backend lớn hơn.
-
-Không cần ưu tiên các phần này ngay.
-
----
-
-# 22. Bước tiếp theo
-
-Buổi tiếp theo:
-
-## Android ↔ PHP API bằng Retrofit
-
-Mục tiêu:
-
-```text
-Android Registration UI
-        ↓
-Retrofit
-        ↓
-dang_ky.php
-        ↓
-OTP Gmail
-        ↓
-Android OTP Screen
-        ↓
-xac_thuc_email.php
-        ↓
 Login
-        ↓
-dang_nhap.php
-        ↓
-Receive Token
-        ↓
-Save Token locally
+  ↓
+Access Token
+  +
+Refresh Token
+  ↓
+Access Token dùng gọi API
+  ↓
+Access Token hết hạn
+  ↓
+Refresh Token
+  ↓
+Xin Access Token mới
 ```
 
-Sau khi authentication được nối với Android, bắt đầu xây dựng dữ liệu thật cho:
+Khi logout:
 
 ```text
-Folder
-   ↓
-Bo tu
-   ↓
-Tu vung
+Revoke Refresh Token phía server
+          +
+Xóa Access Token phía client
+          +
+Xóa Refresh Token phía client
+```
+
+Điều này giúp quản lý session tốt hơn JWT access token sống 30 ngày.
+
+---
+
+# 25. API Authentication hiện tại
+
+| Method | Endpoint | Chức năng | Authentication |
+|---|---|---|---|
+| POST | `/auth/dang-ky` | Đăng ký | Không |
+| POST | `/auth/xac-thuc-email` | Xác thực OTP | Không |
+| POST | `/auth/gui-lai-ma-xac-thuc` | Gửi lại OTP | Không |
+| POST | `/auth/dang-nhap` | Đăng nhập | Không |
+| POST | `/auth/dang-xuat` | Đăng xuất | Bearer JWT |
+
+---
+
+# 26. HTTP Status
+
+Một số status quan trọng:
+
+```text
+200 OK
+→ Request thành công
+
+400 Bad Request
+→ Dữ liệu request không hợp lệ
+
+401 Unauthorized
+→ Chưa đăng nhập / JWT không hợp lệ / JWT hết hạn
+
+403 Forbidden
+→ Đã xác thực nhưng không có quyền thực hiện
+
+404 Not Found
+→ Không tồn tại endpoint/resource
+
+500 Internal Server Error
+→ Lỗi phía backend
+```
+
+Ví dụ middleware JWT:
+
+```js
+return res.status(401).json({
+    thanh_cong: false,
+    thong_bao: "Token không hợp lệ hoặc đã hết hạn"
+});
 ```
 
 ---
 
-# 23. Kiến thức cần nhớ sau buổi này
+# 27. Security Principles
 
-Nếu sau này quên hết, chỉ cần nhớ các ý sau:
+Authentication Kenglish hiện áp dụng các nguyên tắc:
 
-1. **Android không kết nối trực tiếp MySQL.**
-2. Android gửi HTTP/JSON tới PHP API.
-3. PHP dùng prepared statement để truy vấn MySQL.
-4. Password phải `password_hash()`, kiểm tra bằng `password_verify()`.
-5. OTP dùng để xác minh quyền sở hữu email.
-6. OTP phải có thời gian hết hạn.
-7. Login thành công tạo token.
-8. Client giữ raw token, database giữ token hash.
-9. Request cần đăng nhập gửi `Authorization: Bearer TOKEN`.
-10. Logout phải revoke/delete session phía server.
-11. Secret như Gmail App Password không bao giờ commit lên Git.
-12. `composer.json` + `composer.lock` commit; `vendor/` không cần commit.
-13. Junction giúp XAMPP chạy trực tiếp backend nằm trong repository.
+```text
+✓ Không lưu plaintext password
+✓ Hash password bằng bcrypt
+✓ SQL parameterized query
+✓ Secret lưu trong .env
+✓ Không commit .env lên Git
+✓ OTP có thời hạn
+✓ OTP được xóa sau xác thực
+✓ JWT có expiration
+✓ JWT được verify ở backend
+✓ Protected API sử dụng middleware
+✓ Không tin user ID do client tự khai báo
+```
+
+Không được:
+
+```text
+✗ Lưu plaintext password
+✗ Đưa JWT_SECRET lên GitHub
+✗ Đưa Gmail App Password lên GitHub
+✗ Đưa password vào JWT
+✗ Đưa OTP vào JWT
+✗ Tin user ID từ client mà không xác thực
+```
 
 ---
 
-## Commit của buổi học
+# 28. Kiến thức chính đã học
+
+Qua module Authentication của Kenglish:
+
+### Backend
 
 ```text
-feat: add authentication backend with email verification
+Node.js
+Express.js
+REST API
+Controller
+Route
+Middleware
+Service
+Environment Variables
 ```
 
-**Trạng thái cuối buổi:** Authentication Backend v1 hoạt động end-to-end và đã được kiểm thử bằng Postman.
+### Database
+
+```text
+MySQL
+Connection Pool
+Parameterized Query
+SELECT
+INSERT
+UPDATE
+```
+
+### Security
+
+```text
+bcrypt
+Password Hashing
+OTP
+JWT
+JWT Signature
+JWT Expiration
+Bearer Authentication
+Protected Route
+```
+
+### Email
+
+```text
+Nodemailer
+SMTP
+Gmail App Password
+HTML Email
+```
+
+### Authentication Flow
+
+```text
+Register
+   ↓
+Verify Email
+   ↓
+Login
+   ↓
+JWT
+   ↓
+Bearer Token
+   ↓
+Middleware
+   ↓
+Protected API
+   ↓
+Logout
+```
+
+---
+
+# 29. TODO
+
+Các chức năng có thể hoàn thiện sau:
+
+```text
+[ ] Cooldown gửi lại OTP 60 giây
+[ ] Tự xóa tài khoản chưa xác thực sau 24 giờ
+[ ] Access Token ngắn hạn
+[ ] Refresh Token
+[ ] Revoke Refresh Token khi logout
+[ ] Quên mật khẩu
+[ ] Đặt lại mật khẩu
+[ ] Đổi mật khẩu
+[ ] Rate limiting
+[ ] Deploy backend
+[ ] Domain email riêng
+[ ] SPF / DKIM / DMARC
+```
+
+---
+
+## Kenglish
+
+**English Vocabulary Learning Application**
+
+Backend Authentication:
+
+```text
+Node.js + Express + MySQL + JWT
+```
