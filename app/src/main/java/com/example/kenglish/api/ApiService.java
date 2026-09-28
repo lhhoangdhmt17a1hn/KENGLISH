@@ -13,22 +13,22 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
-    @POST("auth/dang_ky.php")
+    @POST("auth/dang-ky")
     Call<ApiResponse> dangKy(
             @Body DangKyRequest request
     );
 
-    @POST("auth/xac_thuc_email.php")
+    @POST("auth/xac-thuc-email")
     Call<ApiResponse> xacThucEmail(
             @Body XacThucEmailRequest request
     );
 
-    @POST("auth/dang_nhap.php")
+    @POST("auth/dang-nhap")
     Call<DangNhapResponse> dangNhap(
             @Body DangNhapRequest request
     );
 
-    @POST("auth/dang_xuat.php")
+    @POST("auth/dang-xuat")
     Call<ApiResponse> dangXuat(
             @Header("Authorization") String token
     );

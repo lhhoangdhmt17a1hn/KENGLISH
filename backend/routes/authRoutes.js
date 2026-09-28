@@ -8,7 +8,6 @@ const xacThucToken = require("../middleware/xacThucToken");
 
 const router = express.Router();
 
-
 router.post("/dang-ky", dangKy);
 router.post("/xac-thuc-email", xacThucEmail);
 router.post("/gui-lai-ma-xac-thuc", guiLaiMaXacThuc);
