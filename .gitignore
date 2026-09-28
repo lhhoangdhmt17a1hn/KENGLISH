@@ -45,5 +45,12 @@ local.properties
 # Environment / Secrets
 # =========================
 
+# ========================
+# Node.js Backend
+# ========================
+
+backend/node_modules/
+backend/.env
+
 .env
 .env.*
