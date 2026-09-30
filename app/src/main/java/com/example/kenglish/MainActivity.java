@@ -283,12 +283,6 @@ public class MainActivity extends AppCompatActivity {
         manHinhHienTai = manHinhMoi;
     }
 
-
-    /**
-     * Đổi màu icon và chữ của tab đang được chọn.
-     *
-     * @param mauDuocChon màu của tab đang chọn.
-     */
     private void thietLapMauThanhDieuHuong() {
 
         int[][] trangThai = new int[][]{
