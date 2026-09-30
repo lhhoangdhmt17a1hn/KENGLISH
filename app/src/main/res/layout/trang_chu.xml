@@ -8,7 +8,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f5f5f6"
+    android:background="#FFFFFF"
     android:clipToPadding="false"
     android:fillViewport="true"
     android:overScrollMode="never">
@@ -33,6 +33,9 @@
         <!-- Banner Trang chủ -->
         <include
             layout="@layout/trangchu_banner" />
+
+        <include
+            layout="@layout/trangchu_tratu" />
 
 
         <!-- Thống kê -->
