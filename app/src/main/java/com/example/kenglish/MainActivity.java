@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Thiết lập màu cho tab đang được chọn.
-        capNhatMauTabHienTai();
+        thietLapMauThanhDieuHuong();
     }
 
 
@@ -72,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
         thanhDieuHuong = findViewById(
                 R.id.thanh_dieu_huong
+        );
+
+        thanhDieuHuong.setItemActiveIndicatorColor(
+                ColorStateList.valueOf(
+                        Color.parseColor("#37659C")
+                )
         );
     }
 
@@ -214,84 +220,35 @@ public class MainActivity extends AppCompatActivity {
 
             int id = item.getItemId();
 
-
-            // Chuyển sang màn hình Trang chủ.
             if (id == R.id.menu_trang_chu) {
-
                 chuyenManHinh(trangChu);
-
-                doiMauThanhDieuHuong(
-                        Color.parseColor("#29B6F6")
-                );
-
                 return true;
             }
 
-
-            // Chuyển sang màn hình Bộ từ.
             if (id == R.id.menu_bo_tu) {
-
                 chuyenManHinh(boTu);
-
-                doiMauThanhDieuHuong(
-                        Color.parseColor("#35C759")
-                );
-
                 return true;
             }
 
-
-            // Chuyển sang màn hình Luyện tập.
             if (id == R.id.menu_luyen_tap) {
-
                 chuyenManHinh(luyenTap);
-
-                doiMauThanhDieuHuong(
-                        Color.parseColor("#FF9F0A")
-                );
-
                 return true;
             }
 
-
-            // Chuyển sang màn hình Xếp hạng.
             if (id == R.id.menu_xep_hang) {
-
                 chuyenManHinh(xepHang);
-
-                doiMauThanhDieuHuong(
-                        Color.parseColor("#FFD43B")
-                );
-
                 return true;
             }
 
-
-            // Chuyển sang màn hình Cửa hàng.
             if (id == R.id.menu_cua_hang) {
-
                 chuyenManHinh(cuaHang);
-
-                doiMauThanhDieuHuong(
-                        Color.parseColor("#AF52DE")
-                );
-
                 return true;
             }
 
-
-            // Chuyển sang màn hình Cá nhân.
             if (id == R.id.menu_ca_nhan) {
-
                 chuyenManHinh(caNhan);
-
-                doiMauThanhDieuHuong(
-                        Color.parseColor("#FF5C8A")
-                );
-
                 return true;
             }
-
 
             return false;
         });
@@ -332,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param mauDuocChon màu của tab đang chọn.
      */
-    private void doiMauThanhDieuHuong(int mauDuocChon) {
+    private void thietLapMauThanhDieuHuong() {
 
         int[][] trangThai = new int[][]{
                 new int[]{android.R.attr.state_checked},
@@ -340,71 +297,31 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-        int[] mauSac = new int[]{
-                mauDuocChon,
-                Color.parseColor("#AAB4C5")
+        // Màu icon
+        // Active   -> trắng
+        // Inactive -> xám
+        int[] mauIcon = new int[]{
+                Color.WHITE,
+                Color.parseColor("#A9A9A9")
         };
 
 
-        ColorStateList danhSachMau = new ColorStateList(
-                trangThai,
-                mauSac
-        );
+        // Màu chữ
+        // Active   -> heading
+        // Inactive -> chữ phụ
+        int[] mauChu = new int[]{
+                Color.parseColor("#37659C"),
+                Color.parseColor("#A9A9A9")
+        };
 
 
         thanhDieuHuong.setItemIconTintList(
-                danhSachMau
+                new ColorStateList(trangThai, mauIcon)
         );
 
         thanhDieuHuong.setItemTextColor(
-                danhSachMau
+                new ColorStateList(trangThai, mauChu)
         );
     }
 
-
-    /**
-     * Thiết lập lại màu tab hiện tại khi Activity được tạo.
-     */
-    private void capNhatMauTabHienTai() {
-
-        int id = thanhDieuHuong.getSelectedItemId();
-
-
-        if (id == R.id.menu_bo_tu) {
-
-            doiMauThanhDieuHuong(
-                    Color.parseColor("#35C759")
-            );
-
-        } else if (id == R.id.menu_luyen_tap) {
-
-            doiMauThanhDieuHuong(
-                    Color.parseColor("#FF9F0A")
-            );
-
-        } else if (id == R.id.menu_xep_hang) {
-
-            doiMauThanhDieuHuong(
-                    Color.parseColor("#FFD43B")
-            );
-
-        } else if (id == R.id.menu_cua_hang) {
-
-            doiMauThanhDieuHuong(
-                    Color.parseColor("#AF52DE")
-            );
-
-        } else if (id == R.id.menu_ca_nhan) {
-
-            doiMauThanhDieuHuong(
-                    Color.parseColor("#FF5C8A")
-            );
-
-        } else {
-
-            doiMauThanhDieuHuong(
-                    Color.parseColor("#29B6F6")
-            );
-        }
-    }
 }

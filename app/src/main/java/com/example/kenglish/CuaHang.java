@@ -44,7 +44,6 @@ public class CuaHang extends Fragment {
     private static final String LOAI_DAC_BIET =
             "dac_biet";
 
-
     private TextView txtSoXu;
 
     private TextView tabAvatar;

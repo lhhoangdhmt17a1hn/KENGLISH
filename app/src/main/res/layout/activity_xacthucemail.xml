@@ -3,7 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#182230"
+    android:background="#f5f5f6"
     android:fillViewport="true"
     android:overScrollMode="never">
 
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Xác thực email"
-            android:textColor="#FFFFFF"
+            android:textColor="#202124"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -41,7 +41,7 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="Mã xác thực đã được gửi tới email của bạn"
-            android:textColor="#94A3B8"
+            android:textColor="#5F6368"
             android:textSize="11sp" />
 
         <EditText
@@ -55,8 +55,8 @@
             android:inputType="number"
             android:maxLength="6"
             android:letterSpacing="0.25"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#8391A5"
+            android:textColor="#5F6368"
+            android:textColorHint="#A9A9A9"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -67,8 +67,8 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/nen_nut_xacnhan"
             android:gravity="center"
-            android:text="Xác thực"
-            android:textColor="#182230"
+            android:text="XÁC THỰC"
+            android:textColor="#ffffff"
             android:textSize="13sp"
             android:textStyle="bold" />
 
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Không nhận được mã? "
-                android:textColor="#CBD5E1"
+                android:textColor="#5F6368"
                 android:textSize="11sp" />
 
             <TextView
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Gửi lại"
-                android:textColor="#FFD43B"
+                android:textColor="#37659C"
                 android:textSize="11sp" />
 
         </LinearLayout>

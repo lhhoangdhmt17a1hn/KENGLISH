@@ -3,7 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#182230"
+    android:background="#f5f5f6"
     android:fillViewport="true"
     android:overScrollMode="never">
 
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:text="Tạo tài khoản"
-            android:textColor="#FFFFFF"
+            android:textColor="#202124"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="Bắt đầu hành trình học từ vựng của bạn"
-            android:textColor="#94A3B8"
+            android:textColor="#5F6368"
             android:textSize="11sp" />
 
         <!-- Tên hiển thị -->
@@ -55,8 +55,8 @@
             android:inputType="textPersonName"
             android:paddingStart="18dp"
             android:paddingEnd="18dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#8391A5"
+            android:textColor="#5F6368"
+            android:textColorHint="#A9A9A9"
             android:textSize="11sp" />
 
         <!-- Email -->
@@ -70,8 +70,8 @@
             android:inputType="textEmailAddress"
             android:paddingStart="18dp"
             android:paddingEnd="18dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#8391A5"
+            android:textColor="#5F6368"
+            android:textColorHint="#A9A9A9"
             android:textSize="11sp" />
 
         <!-- Mật khẩu -->
@@ -85,8 +85,8 @@
             android:inputType="textPassword"
             android:paddingStart="18dp"
             android:paddingEnd="18dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#8391A5"
+            android:textColor="#5F6368"
+            android:textColorHint="#A9A9A9"
             android:textSize="11sp" />
 
         <!-- Xác nhận mật khẩu -->
@@ -100,8 +100,8 @@
             android:inputType="textPassword"
             android:paddingStart="18dp"
             android:paddingEnd="18dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#8391A5"
+            android:textColor="#5F6368"
+            android:textColorHint="#A9A9A9"
             android:textSize="11sp" />
 
         <!-- Submit -->
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="#FF6B6B"
+            android:textColor="#C94A4A"
             android:textSize="11sp"
             android:visibility="gone" />
 
@@ -121,8 +121,8 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/nen_nut_xacnhan"
             android:gravity="center"
-            android:text="Đăng ký"
-            android:textColor="#182230"
+            android:text="ĐĂNG KÝ"
+            android:textColor="#ffffff"
             android:textSize="13sp"
             android:textStyle="bold" />
 
@@ -139,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đã có tài khoản? "
-                android:textColor="#CBD5E1"
+                android:textColor="#5F6368"
                 android:textSize="11sp" />
 
             <!-- Chỉ phần này có thể bấm -->
@@ -150,7 +150,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:text="Đăng nhập"
-                android:textColor="#FFD43B"
+                android:textColor="#37659C"
                 android:textSize="11sp"
                 android:textStyle="bold" />
 

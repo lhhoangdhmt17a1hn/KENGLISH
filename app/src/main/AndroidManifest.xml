@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kenglish">
         <activity
-            android:name=".MainActivity"
+            android:name=".DangNhapActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize">
         </activity>
@@ -47,7 +47,7 @@
             android:name=".DangKyActivity"
             android:exported="false" />
         <activity
-            android:name=".DangNhapActivity"
+            android:name=".MainActivity"
             android:exported="true" >
 
             <intent-filter>

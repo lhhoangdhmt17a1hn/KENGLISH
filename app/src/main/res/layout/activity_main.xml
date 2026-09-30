@@ -10,7 +10,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#182230">
+    android:background="#f5f5f6">
 
 
     <!--
@@ -37,7 +37,8 @@
         android:id="@+id/thanh_dieu_huong"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#182230"
+        android:background="#f5f5f6"
+        app:itemTextColor="#A9A9A9"
         app:itemIconSize="15dp"
         app:itemTextAppearanceActive="@style/BottomNavigationText"
         app:itemTextAppearanceInactive="@style/BottomNavigationText"
