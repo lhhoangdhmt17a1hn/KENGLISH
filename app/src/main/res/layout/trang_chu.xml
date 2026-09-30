@@ -42,6 +42,9 @@
         <include
             layout="@layout/trangchu_thongke" />
 
+        <include
+            layout="@layout/trangchu_taobotu" />
+
 
 
     </LinearLayout>

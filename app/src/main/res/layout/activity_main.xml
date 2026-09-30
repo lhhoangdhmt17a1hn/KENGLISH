@@ -37,7 +37,7 @@
         android:id="@+id/thanh_dieu_huong"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#f5f5f6"
+        android:background="#ffffff"
         app:itemTextColor="#A9A9A9"
         app:itemIconSize="15dp"
         app:itemTextAppearanceActive="@style/BottomNavigationText"

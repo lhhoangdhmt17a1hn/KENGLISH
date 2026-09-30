@@ -41,6 +41,7 @@ public class TrangChu extends Fragment {
      * vì vậy không cần ánh xạ icon tại đây.
      */
     private TextView txtChuoiHoc;
+    private TextView btnBoTu;
 
 
     /**
@@ -66,6 +67,8 @@ public class TrangChu extends Fragment {
 
         thietLapSuKienTuDenHan();
 
+        thietLapSuKienTaoBoTu();
+
         hienThiChuoiHoc();
 
 
@@ -89,6 +92,11 @@ public class TrangChu extends Fragment {
         txtChuoiHoc =
                 view.findViewById(
                         R.id.txt_chuoi_hoc
+                );
+
+        btnBoTu =
+                view.findViewById(
+                        R.id.btn_tao_bo_tu
                 );
 
 
@@ -159,6 +167,21 @@ public class TrangChu extends Fragment {
 
             thanhDieuHuong.setSelectedItemId(
                     R.id.menu_luyen_tap
+            );
+        });
+    }
+
+    private void thietLapSuKienTaoBoTu() {
+
+        btnBoTu.setOnClickListener(v -> {
+
+            BottomNavigationView thanhDieuHuong =
+                    requireActivity().findViewById(
+                            R.id.thanh_dieu_huong
+                    );
+
+            thanhDieuHuong.setSelectedItemId(
+                    R.id.menu_bo_tu
             );
         });
     }
