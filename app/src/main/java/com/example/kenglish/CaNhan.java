@@ -1,5 +1,6 @@
 package com.example.kenglish;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ import retrofit2.Response;
 public class CaNhan extends Fragment {
 
     private LinearLayout cardDangXuat;
+    private TextView txtHoTen;
 
 
     /**
@@ -47,6 +50,7 @@ public class CaNhan extends Fragment {
         );
 
         anhXa(view);
+        hienThiThongTinUser();
         xuLySuKien();
 
         return view;
@@ -58,6 +62,18 @@ public class CaNhan extends Fragment {
      */
     private void anhXa(View view) {
         cardDangXuat = view.findViewById(R.id.card_dang_xuat);
+        txtHoTen = view.findViewById(R.id.txt_ho_ten);
+    }
+
+    private void hienThiThongTinUser() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(
+                "Kenglish",
+                Context.MODE_PRIVATE
+        );
+
+        String tenHienThi = sharedPreferences.getString("ten_hien_thi", "Người dùng");
+
+        txtHoTen.setText(tenHienThi);
     }
 
 

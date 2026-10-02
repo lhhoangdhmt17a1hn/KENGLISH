@@ -5,6 +5,7 @@ public class DangNhapResponse {
     private boolean thanh_cong;
     private String thong_bao;
     private String token;
+    private NguoiDung nguoi_dung;
 
     public boolean isThanhCong() {
         return thanh_cong;
@@ -16,5 +17,9 @@ public class DangNhapResponse {
 
     public String getToken() {
         return token;
+    }
+
+    public NguoiDung getNguoiDung() {
+        return nguoi_dung;
     }
 }

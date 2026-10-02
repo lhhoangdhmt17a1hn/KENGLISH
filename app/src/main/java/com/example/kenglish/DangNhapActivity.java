@@ -164,8 +164,10 @@ public class DangNhapActivity extends AppCompatActivity {
                                 String token =
                                         ketQua.getToken();
 
+                                String tenHienThi = ketQua.getNguoiDung().getTenHienThi();
+
                                 // Lưu token vào máy
-                                luuToken(token);
+                                luuThongTinDangNhap(token, tenHienThi);
 
                                 Toast.makeText(
                                         DangNhapActivity.this,
@@ -217,7 +219,7 @@ public class DangNhapActivity extends AppCompatActivity {
                 });
     }
 
-    private void luuToken(String token) {
+    private void luuThongTinDangNhap(String token, String tenHienThi) {
 
         SharedPreferences sharedPreferences =
                 getSharedPreferences(
@@ -228,6 +230,7 @@ public class DangNhapActivity extends AppCompatActivity {
         sharedPreferences
                 .edit()
                 .putString("token", token)
+                .putString("ten_hien_thi", tenHienThi)
                 .apply();
     }
 
