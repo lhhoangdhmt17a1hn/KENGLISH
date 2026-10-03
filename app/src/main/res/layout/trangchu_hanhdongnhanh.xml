@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp"
+    android:orientation="vertical">
+
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/juve_headin"
+        android:text="HÀNH ĐỘNG NHANH"
+        android:textColor="#111111"
+        android:textSize="17sp" />
+
+
+    <!-- Danh sách hành động -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+
+        <!-- Học từ mới -->
+        <LinearLayout
+            android:id="@+id/btn_cong_dong"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/nen_trangchu_hanhdong"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+
+            <!-- Icon -->
+            <ImageView
+                android:id="@+id/img_cong_dong"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Cộng đồng"
+                android:src="@drawable/ic_congdong"
+                app:tint="#37659C" />
+
+
+            <!-- Tên + mũi tên -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/juve_headin"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Học từ mới"
+                    android:textColor="#111111"
+                    android:textSize="11sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/juve_normal"
+                    android:text="→"
+                    android:textColor="#37659C"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!-- Luyện tập -->
+        <LinearLayout
+            android:id="@+id/btn_luyen_tap_nhanh"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/nen_trangchu_hanhdong"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+
+            <!-- Icon -->
+            <ImageView
+                android:id="@+id/img_luyen_tap_nhanh"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Luyện tập"
+                android:src="@drawable/ic_trochoi"
+                app:tint="#37659C" />
+
+
+            <!-- Tên + mũi tên -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/juve_headin"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Luyện tập"
+                    android:textColor="#111111"
+                    android:textSize="11sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/juve_normal"
+                    android:text="→"
+                    android:textColor="#37659C"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!-- Tạo bộ từ -->
+        <LinearLayout
+            android:id="@+id/btn_tao_bo_tu_nhanh"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/nen_trangchu_hanhdong"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+
+            <!-- Icon -->
+            <ImageView
+                android:id="@+id/img_tao_bo_tu_nhanh"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Tạo bộ từ"
+                android:src="@drawable/ic_tailieu"
+                app:tint="#37659C" />
+
+
+            <!-- Tên + mũi tên -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/juve_headin"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Tạo bộ từ"
+                    android:textColor="#111111"
+                    android:textSize="11sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/juve_normal"
+                    android:text="→"
+                    android:textColor="#37659C"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!-- Cửa hàng -->
+        <LinearLayout
+            android:id="@+id/btn_ai_ho_tro"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/nen_trangchu_hanhdong"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+
+            <!-- Icon -->
+            <ImageView
+                android:id="@+id/img_ai_ho_tro"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Trợ lý AI"
+                android:src="@drawable/ic_trolyao"
+                app:tint="#37659C" />
+
+
+            <!-- Tên + mũi tên -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/juve_headin"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Trợ lý AI"
+                    android:textColor="#111111"
+                    android:textSize="11sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/juve_normal"
+                    android:text="→"
+                    android:textColor="#37659C"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

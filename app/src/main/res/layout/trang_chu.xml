@@ -29,21 +29,20 @@
         <include
             layout="@layout/trangchu_thongtinnguoidung" />
 
-
-        <!-- Banner Trang chủ -->
-        <include
-            layout="@layout/trangchu_banner" />
-
         <include
             layout="@layout/trangchu_tratu" />
 
+        <include
+            layout="@layout/trangchu_taobotu" />
 
         <!-- Thống kê -->
         <include
             layout="@layout/trangchu_thongke" />
 
         <include
-            layout="@layout/trangchu_taobotu" />
+            layout="@layout/trangchu_hanhdongnhanh" />
+
+
 
 
 

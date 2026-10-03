@@ -8,21 +8,51 @@
     android:orientation="vertical">
 
 
-    <!-- Tiêu đề -->
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Tiêu đề + xem chi tiết -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/juve_headin"
-        android:layout_gravity="center"
-        android:text="THỐNG KÊ"
-        android:textColor="#111111"
-        android:textSize="17sp" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
 
-    <!-- Hàng thống kê -->
+        <!-- Tiêu đề -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/juve_headin"
+            android:text="THỐNG KÊ HỌC TẬP"
+            android:textColor="#111111"
+            android:textSize="17sp" />
+
+
+        <!-- Khoảng trống -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+
+        <!-- Xem chi tiết -->
+        <TextView
+            android:id="@+id/txt_xem_chi_tiet_thong_ke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/juve_normal"
+            android:text="Xem chi tiết →"
+            android:textColor="#37659C"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+
+    <!-- Khung thống kê -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="76dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/nen_trangchu_thongke"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
 
@@ -39,11 +69,10 @@
                 android:id="@+id/txt_tong_tu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/juve_headin"
                 android:text="373"
-                android:fontFamily="@font/juve_normal"
                 android:textColor="#111111"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -51,8 +80,8 @@
                 android:layout_marginTop="3dp"
                 android:fontFamily="@font/juve_normal"
                 android:text="Tổng từ"
-                android:textColor="#A9A9A9"
-                android:textSize="13sp" />
+                android:textColor="#7C8492"
+                android:textSize="11sp" />
 
         </LinearLayout>
 
@@ -60,8 +89,7 @@
         <!-- Divider -->
         <View
             android:layout_width="1dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center_vertical"
+            android:layout_height="38dp"
             android:background="#E2E3E3" />
 
 
@@ -78,11 +106,10 @@
                 android:id="@+id/txt_da_thuoc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/juve_normal"
+                android:fontFamily="@font/juve_headin"
                 android:text="268"
                 android:textColor="#111111"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,8 +117,8 @@
                 android:layout_marginTop="3dp"
                 android:fontFamily="@font/juve_normal"
                 android:text="Đã thuộc"
-                android:textColor="#A9A9A9"
-                android:textSize="13sp" />
+                android:textColor="#7C8492"
+                android:textSize="11sp" />
 
         </LinearLayout>
 
@@ -99,8 +126,7 @@
         <!-- Divider -->
         <View
             android:layout_width="1dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center_vertical"
+            android:layout_height="38dp"
             android:background="#E2E3E3" />
 
 
@@ -117,20 +143,19 @@
                 android:id="@+id/txt_tien_do"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/juve_normal"
+                android:fontFamily="@font/juve_headin"
                 android:text="72%"
                 android:textColor="#111111"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/juve_normal"
                 android:layout_marginTop="3dp"
+                android:fontFamily="@font/juve_normal"
                 android:text="Tiến độ"
-                android:textColor="#A9A9A9"
-                android:textSize="13sp" />
+                android:textColor="#7C8492"
+                android:textSize="11sp" />
 
         </LinearLayout>
 
@@ -138,8 +163,7 @@
         <!-- Divider -->
         <View
             android:layout_width="1dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center_vertical"
+            android:layout_height="38dp"
             android:background="#E2E3E3" />
 
 
@@ -163,27 +187,24 @@
                     android:id="@+id/txt_tudenhan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/juve_normal"
+                    android:fontFamily="@font/juve_headin"
                     android:text="42"
                     android:textColor="#37659C"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/juve_normal"
-                    android:text="Đến hạn"
-                    android:textColor="#A9A9A9"
-                    android:textSize="13sp" />
+                    android:text="Từ đến hạn"
+                    android:textColor="#7C8492"
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 </LinearLayout>
