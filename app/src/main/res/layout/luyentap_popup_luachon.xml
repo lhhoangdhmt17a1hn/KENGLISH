@@ -18,16 +18,18 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/nen_luyentap_thanhkeo" />
 
+    <!-- Tiêu đề -->
     <TextView
         android:id="@+id/txt_tieu_de_popup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/juve_headin"
         android:text="Chọn trạng thái từ"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:textColor="#111111"
+        android:textSize="15sp" />
 
+    <!-- Danh sách -->
     <LinearLayout
         android:id="@+id/khung_danh_sach_lua_chon"
         android:layout_width="match_parent"

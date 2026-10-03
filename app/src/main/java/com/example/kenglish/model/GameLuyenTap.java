@@ -7,13 +7,13 @@ public class GameLuyenTap {
 
     private String tenGame;
     private String moTa;
-    private String icon;
+    private int icon;
     private int coinThuong;
     private int background;
 
     public GameLuyenTap(String tenGame,
                         String moTa,
-                        String icon,
+                        int icon,
                         int coinThuong,
                         int background) {
 
@@ -32,7 +32,7 @@ public class GameLuyenTap {
         return moTa;
     }
 
-    public String getIcon() {
+    public int getIcon() {
         return icon;
     }
 

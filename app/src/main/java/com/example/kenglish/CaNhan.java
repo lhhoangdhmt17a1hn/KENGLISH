@@ -3,6 +3,7 @@ package com.example.kenglish;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import retrofit2.Response;
 public class CaNhan extends Fragment {
 
     private LinearLayout cardDangXuat;
+    private LinearLayout cardCongDongZalo;
     private TextView txtHoTen;
 
 
@@ -62,6 +64,7 @@ public class CaNhan extends Fragment {
      */
     private void anhXa(View view) {
         cardDangXuat = view.findViewById(R.id.card_dang_xuat);
+        cardCongDongZalo = view.findViewById(R.id.card_cong_dong_zalo);
         txtHoTen = view.findViewById(R.id.txt_ho_ten);
     }
 
@@ -84,6 +87,18 @@ public class CaNhan extends Fragment {
 
         cardDangXuat.setOnClickListener(v -> {
             xuLyDangXuat();
+        });
+
+        cardCongDongZalo.setOnClickListener(v -> {
+
+            String linkZalo = "https://zalo.me/g/oiee8nc0lpggvkgwr14t";
+
+            Intent intent = new Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(linkZalo)
+            );
+
+            startActivity(intent);
         });
     }
 

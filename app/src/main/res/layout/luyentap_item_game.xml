@@ -1,66 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/khung_game"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@drawable/nen_luyentap_game"
+    android:padding="14dp">
 
 
-    <TextView
-        android:id="@+id/txt_ten_game"
+    <!-- ================================================= -->
+    <!-- Nội dung -->
+    <!-- ================================================= -->
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="Flashcard"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txt_mo_ta_game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:text="Lật thẻ và ghi nhớ"
-        android:textColor="#F1F3F7"
-        android:textSize="13sp" />
+
+        <!-- Icon game -->
+        <FrameLayout
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@drawable/nen_luyentap_icon_game">
+
+            <ImageView
+                android:id="@+id/img_icon_game"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:contentDescription="Icon game"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_flashcard"
+                app:tint="#37659C" />
+
+        </FrameLayout>
+
+
+        <!-- Tên game -->
+        <TextView
+            android:id="@+id/txt_ten_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/juve_headin"
+            android:maxLines="1"
+            android:text="Flashcard"
+            android:textColor="#111111"
+            android:textSize="15sp" />
+
+
+        <!-- Mô tả -->
+        <TextView
+            android:id="@+id/txt_mo_ta_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/juve_normal"
+            android:maxLines="1"
+            android:text="Lật thẻ và ghi nhớ"
+            android:textColor="#7C8492"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+
+    <!-- ================================================= -->
+    <!-- Phần thưởng -->
+    <!-- ================================================= -->
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="18dp"
+        android:layout_height="28dp"
+        android:layout_gravity="bottom|start"
+        android:background="@drawable/nen_luyentap_thuong"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp">
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
-        <!-- Số xu thưởng -->
         <TextView
             android:id="@+id/txt_thuong_game"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/juve_headin"
             android:text="+5"
-            android:textColor="#FFFFFF"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            android:textColor="#111111"
+            android:textSize="11sp" />
 
-        <!-- Icon xu -->
         <ImageView
             android:id="@+id/img_xu_thuong_game"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="5dp"
             android:contentDescription="Xu"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_coin"
-            app:tint="#FFD700"/>
+            android:src="@drawable/ic_coin" />
 
     </LinearLayout>
 
-</LinearLayout>
+
+    <!-- ================================================= -->
+    <!-- Nút mở game -->
+    <!-- ================================================= -->
+
+    <FrameLayout
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom|end"
+        android:background="@drawable/nen_luyentap_nut_game">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:contentDescription="Bắt đầu"
+            android:src="@drawable/ic_arrowright"
+            app:tint="#4F4F4F" />
+
+    </FrameLayout>
+
+</FrameLayout>

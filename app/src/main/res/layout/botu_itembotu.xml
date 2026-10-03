@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
@@ -21,10 +22,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/juve_headin"
             android:text="TOEIC Part 5"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textColor="#111111"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/btn_menu_bo_tu"
@@ -32,9 +33,10 @@
             android:layout_height="40dp"
             android:clickable="true"
             android:focusable="true"
+            android:fontFamily="@font/juve_normal"
             android:gravity="center"
             android:text="⋮"
-            android:textColor="#AAB5C3"
+            android:textColor="#7C8492"
             android:textSize="17sp" />
 
     </LinearLayout>
@@ -46,9 +48,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
+        android:fontFamily="@font/juve_normal"
         android:text="30 từ"
-        android:textColor="#95A2B3"
-        android:textSize="11sp" />
+        android:textColor="#7C8492"
+        android:textSize="15sp" />
 
 
     <!-- Tiến độ -->
@@ -62,22 +65,24 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/juve_normal"
             android:text="Đã thuộc"
-            android:textColor="#B6C0CD"
+            android:textColor="#4F4F4F"
             android:textSize="13sp" />
 
         <TextView
             android:id="@+id/txt_tien_do"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/juve_normal"
             android:text="12/30"
-            android:textColor="#FFFFFF"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            android:textColor="#37659C"
+            android:textSize="13sp" />
 
     </LinearLayout>
 
 
+    <!-- Thanh tiến độ -->
     <ProgressBar
         android:id="@+id/progress_bo_tu"
         style="?android:attr/progressBarStyleHorizontal"
@@ -86,14 +91,14 @@
         android:layout_marginTop="8dp"
         android:max="100"
         android:progress="40"
-        android:progressTint="#4D7CFE"
-        android:progressBackgroundTint="#334155" />
+        android:progressBackgroundTint="#E2E3E3"
+        android:progressTint="#37659C" />
 
 
     <!-- Các nút -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_marginTop="18dp"
         android:orientation="horizontal">
 
@@ -103,12 +108,12 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="6dp"
             android:layout_weight="1"
-            android:background="@drawable/nen_nutcardbotu"
+            android:background="@drawable/nen_botu_nutphu"
+            android:fontFamily="@font/juve_headin"
             android:gravity="center"
             android:text="XEM"
-            android:textColor="#FFFFFF"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:textColor="#37659C"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/btn_luyen_tap_bo_tu"
@@ -116,12 +121,12 @@
             android:layout_height="match_parent"
             android:layout_marginStart="6dp"
             android:layout_weight="1"
-            android:background="@drawable/nen_nutcardbotu"
+            android:background="@drawable/nen_nuttaobotu"
+            android:fontFamily="@font/juve_headin"
             android:gravity="center"
             android:text="LUYỆN TẬP"
             android:textColor="#FFFFFF"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:textSize="13sp" />
 
     </LinearLayout>
 

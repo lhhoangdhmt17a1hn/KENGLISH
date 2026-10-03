@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/khung_lua_chon"
     android:layout_width="match_parent"
-    android:layout_height="62dp"
+    android:layout_height="56dp"
     android:layout_marginBottom="8dp"
     android:background="@drawable/nen_luyentap_luachon"
     android:gravity="center_vertical"
@@ -14,11 +14,11 @@
 
     <ImageView
         android:id="@+id/txt_dau_chon"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:gravity="center"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:contentDescription="Lựa chọn"
         android:src="@drawable/ic_bullet"
-        app:tint="#8794AA" />
+        app:tint="#37659C" />
 
     <TextView
         android:id="@+id/txt_noi_dung_lua_chon"
@@ -26,9 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_weight="1"
+        android:fontFamily="@font/juve_normal"
         android:text="Đã thuộc"
-        android:textColor="#FFFFFF"
-        android:textSize="13sp"
-        android:textStyle="bold" />
+        android:textColor="#111111"
+        android:textSize="13sp" />
 
 </LinearLayout>

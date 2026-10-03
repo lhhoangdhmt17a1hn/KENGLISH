@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#182230"
+    android:background="#FFFFFF"
     android:clipToPadding="false"
     android:fillViewport="true"
     android:overScrollMode="never">
@@ -18,14 +18,60 @@
         android:paddingEnd="16dp"
         android:paddingBottom="24dp">
 
+
+        <!-- ================================================= -->
+        <!-- Tiêu đề trang -->
+        <!-- ================================================= -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/juve_headin"
+            android:text="LUYỆN TẬP"
+            android:textColor="#111111"
+            android:textSize="20sp" />
+
+
+        <!-- Mô tả -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/juve_normal"
+            android:text="Chọn bộ từ và phương thức luyện tập phù hợp"
+            android:textColor="#7C8492"
+            android:textSize="13sp" />
+
+
+        <!-- ================================================= -->
         <!-- Bộ lọc luyện tập -->
-        <include layout="@layout/luyentap_boloc" />
+        <!-- ================================================= -->
 
+        <include
+            layout="@layout/luyentap_boloc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
+
+        <!-- ================================================= -->
         <!-- Danh sách game -->
-        <include layout="@layout/luyentap_chongame" />
+        <!-- ================================================= -->
 
+        <include
+            layout="@layout/luyentap_chongame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <!-- ================================================= -->
         <!-- Lịch sử luyện tập -->
-        <include layout="@layout/luyentap_lichsu" />
+        <!-- ================================================= -->
+
+        <include
+            layout="@layout/luyentap_lichsu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

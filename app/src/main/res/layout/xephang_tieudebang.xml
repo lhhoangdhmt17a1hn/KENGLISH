@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- Tiêu đề của bảng xếp hạng -->
+<!-- Tiêu đề bảng xếp hạng -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="44dp"
-    android:orientation="horizontal"
+    android:background="#EEF4FB"
     android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:paddingStart="14dp"
-    android:paddingEnd="14dp"
-    android:background="#202B3B">
+    android:paddingEnd="14dp">
 
+
+    <!-- Hạng -->
     <TextView
         android:layout_width="48dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/juve_normal"
         android:text="HẠNG"
-        android:textColor="#8E99AA"
-        android:textSize="10sp"
-        android:textStyle="bold" />
+        android:textColor="#7C8492"
+        android:textSize="11sp" />
 
+
+    <!-- Người dùng -->
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:fontFamily="@font/juve_normal"
         android:text="NGƯỜI DÙNG"
-        android:textColor="#8E99AA"
-        android:textSize="10sp"
-        android:textStyle="bold" />
+        android:textColor="#7C8492"
+        android:textSize="11sp" />
 
+
+    <!-- Điểm -->
     <TextView
         android:id="@+id/txt_tieu_de_diem"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/juve_normal"
         android:gravity="end"
         android:text="LƯỢT"
-        android:textColor="#8E99AA"
-        android:textSize="10sp"
-        android:textStyle="bold" />
+        android:textColor="#7C8492"
+        android:textSize="11sp" />
 
 </LinearLayout>

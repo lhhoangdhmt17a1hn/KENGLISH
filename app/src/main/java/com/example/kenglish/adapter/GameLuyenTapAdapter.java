@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -113,6 +115,7 @@ public class GameLuyenTapAdapter extends BaseAdapter {
                     );
 
 
+
             /*
              * Lưu ViewHolder để tái sử dụng.
              */
@@ -141,6 +144,8 @@ public class GameLuyenTapAdapter extends BaseAdapter {
                 game.getTenGame()
         );
 
+        holder.imgIconGame =
+                convertView.findViewById(R.id.img_icon_game);
 
         /*
          * Hiển thị mô tả game.
@@ -165,8 +170,10 @@ public class GameLuyenTapAdapter extends BaseAdapter {
          * Đặt background riêng cho từng loại game.
          */
         holder.khungGame.setBackgroundResource(
-                game.getBackground()
+                R.drawable.nen_luyentap_game
         );
+
+        holder.imgIconGame.setImageResource(game.getIcon());
 
 
         return convertView;
@@ -179,7 +186,8 @@ public class GameLuyenTapAdapter extends BaseAdapter {
      */
     private static class ViewHolder {
 
-        LinearLayout khungGame;
+        FrameLayout khungGame;
+        ImageView imgIconGame;
 
         TextView txtTen;
         TextView txtMoTa;

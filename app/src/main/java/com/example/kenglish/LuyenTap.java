@@ -182,7 +182,7 @@ public class LuyenTap extends Fragment {
                 new GameLuyenTap(
                         "Flashcard",
                         "Lật thẻ và ghi nhớ",
-                        "◩",
+                        R.drawable.ic_flashcard,
                         5,
                         R.drawable.nen_luyentap_game_flashcard
                 )
@@ -192,7 +192,7 @@ public class LuyenTap extends Fragment {
                 new GameLuyenTap(
                         "Trắc nghiệm",
                         "Chọn đáp án đúng",
-                        "▣",
+                        R.drawable.ic_tracnghiem,
                         10,
                         R.drawable.nen_luyentap_game_tracnghiem
                 )
@@ -202,7 +202,7 @@ public class LuyenTap extends Fragment {
                 new GameLuyenTap(
                         "Nối từ với nghĩa",
                         "Ghép các cặp thật nhanh",
-                        "↔",
+                        R.drawable.ic_noitu,
                         10,
                         R.drawable.nen_luyentap_game_noitu
                 )
@@ -212,7 +212,7 @@ public class LuyenTap extends Fragment {
                 new GameLuyenTap(
                         "Gõ từ vựng",
                         "Nhớ nghĩa và gõ từ",
-                        "⌨",
+                        R.drawable.ic_gotu,
                         10,
                         R.drawable.nen_luyentap_game_gotu
                 )
@@ -222,7 +222,7 @@ public class LuyenTap extends Fragment {
                 new GameLuyenTap(
                         "Nghe viết",
                         "Nghe và nhập từ đúng",
-                        "♬",
+                        R.drawable.ic_ngheviet,
                         15,
                         R.drawable.nen_luyentap_game_ngheviet
                 )
@@ -232,7 +232,7 @@ public class LuyenTap extends Fragment {
                 new GameLuyenTap(
                         "Đặc biệt",
                         "Thử các chế độ mới",
-                        "✦",
+                        R.drawable.ic_game_dacbiet,
                         20,
                         R.drawable.nen_luyentap_game_dacbiet
                 )
@@ -450,12 +450,13 @@ public class LuyenTap extends Fragment {
                         R.drawable.ic_check
                 );
 
+                // Màu xanh Primary Kenglish
                 imgDauChon.setColorFilter(
-                        0xFF20C45A
+                        0xFF37659C
                 );
 
                 txtNoiDung.setTextColor(
-                        0xFF20C45A
+                        0xFF37659C
                 );
 
             } else {
@@ -471,12 +472,14 @@ public class LuyenTap extends Fragment {
                         R.drawable.ic_bullet
                 );
 
+                // Bullet màu xám
                 imgDauChon.setColorFilter(
-                        0xFF8794AA
+                        0xFFA9A9A9
                 );
 
+                // Chữ đen
                 txtNoiDung.setTextColor(
-                        0xFFFFFFFF
+                        0xFF111111
                 );
             }
 

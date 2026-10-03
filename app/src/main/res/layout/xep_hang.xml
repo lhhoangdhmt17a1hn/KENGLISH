@@ -4,40 +4,67 @@
     Màn hình Xếp hạng.
 
     Gồm 3 tab:
-    - Lượt chơi game
+    - Lượt chơi
     - Streak
     - Cộng đồng
-
-    Nội dung từng tab được xử lý riêng để sau này
-    có thể thay dữ liệu mẫu bằng dữ liệu Backend.
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    android:background="#182230"
     android:paddingStart="16dp"
     android:paddingTop="24dp"
-    android:paddingEnd="16dp">
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp">
 
+
+    <!-- ================================================= -->
+    <!-- Tiêu đề trang -->
+    <!-- ================================================= -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/juve_headin"
+        android:text="XẾP HẠNG"
+        android:textColor="#111111"
+        android:textSize="17sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/juve_normal"
+        android:text="Theo dõi thành tích và cộng đồng Kenglish"
+        android:textColor="#7C8492"
+        android:textSize="13sp" />
+
+
+    <!-- ================================================= -->
     <!-- Thanh chuyển tab -->
+    <!-- ================================================= -->
+
     <include
         layout="@layout/xephang_tab"
         android:layout_width="match_parent"
-        android:layout_height="54dp" />
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp" />
 
 
-    <!-- ================= BẢNG XẾP HẠNG ================= -->
+    <!-- ================================================= -->
+    <!-- Bảng xếp hạng -->
+    <!-- ================================================= -->
 
     <LinearLayout
         android:id="@+id/khung_bang_xep_hang"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:layout_weight="1"
-        android:layout_marginTop="18dp"
-        android:orientation="vertical"
-        android:background="@drawable/nen_xephang_bang">
+        android:background="@drawable/nen_xephang_bang"
+        android:orientation="vertical">
 
         <include
             layout="@layout/xephang_tieudebang"
@@ -49,21 +76,23 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:divider="#344156"
+            android:divider="#E2E3E3"
             android:dividerHeight="1dp"
             android:scrollbars="none" />
 
     </LinearLayout>
 
 
-    <!-- ================= CỘNG ĐỒNG ================= -->
+    <!-- ================================================= -->
+    <!-- Cộng đồng -->
+    <!-- ================================================= -->
 
     <FrameLayout
         android:id="@+id/khung_cong_dong"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:layout_weight="1"
-        android:layout_marginTop="18dp"
         android:visibility="gone">
 
         <include

@@ -2,79 +2,77 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
     android:orientation="vertical">
 
+
+    <!-- ================================================= -->
+    <!-- Tiêu đề -->
+    <!-- ================================================= -->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Chọn game:"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:fontFamily="@font/juve_headin"
+            android:text="CHỌN DẠNG BÀI TẬP"
+            android:textColor="#111111"
+            android:textSize="17sp" />
 
-        <TextView
+
+        <!-- Tùy chỉnh -->
+        <LinearLayout
             android:id="@+id/btn_cai_dat_luyen_tap"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="⚙"
-            android:textColor="#29B6F6"
-            android:textSize="15sp" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/txt_am_luong"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:background="@drawable/nen_luyentap_nhan"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="🔊 70%"
-            android:textColor="#14823B"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txt_so_tu_san_sang"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginStart="6dp"
-            android:background="@drawable/nen_luyentap_nhan"
-            android:gravity="center"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="373 từ sẵn sàng"
-            android:textColor="#14823B"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="Tùy chỉnh"
+                android:src="@drawable/ic_settings"
+                app:tint="#37659C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/juve_normal"
+                android:text="Tùy chỉnh"
+                android:textColor="#37659C"
+                android:textSize="13sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
+    <!-- ================================================= -->
+    <!-- Danh sách game -->
+    <!-- ================================================= -->
 
     <GridView
         android:id="@+id/grid_game"
         android:layout_width="match_parent"
-        android:layout_height="690dp"
-        android:layout_marginTop="14dp"
+        android:layout_height="510dp"
+        android:layout_marginTop="8dp"
         android:columnWidth="150dp"
-        android:horizontalSpacing="10dp"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp"
+        android:horizontalSpacing="8dp"
         android:listSelector="@android:color/transparent"
-        android:scrollbars="none" />
+        android:numColumns="2"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="8dp" />
 
 </LinearLayout>

@@ -5,10 +5,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
 
-    <!-- Tiêu đề -->
+    <!-- ================================================= -->
+    <!-- Header cộng đồng -->
+    <!-- ================================================= -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -19,24 +23,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cộng đồng Kenglish"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/juve_headin"
+            android:text="CỘNG ĐỒNG KENGLISH"
+            android:textColor="#111111"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/btn_lam_moi_cong_dong"
             android:layout_width="44dp"
             android:layout_height="44dp"
+            android:fontFamily="@font/juve_normal"
             android:gravity="center"
             android:text="↻"
-            android:textColor="#AAB4C5"
+            android:textColor="#37659C"
             android:textSize="15sp" />
 
     </LinearLayout>
 
 
+    <!-- ================================================= -->
     <!-- Danh sách bài viết -->
+    <!-- ================================================= -->
+
     <ListView
         android:id="@+id/list_cong_dong"
         android:layout_width="match_parent"
@@ -47,7 +55,10 @@
         android:scrollbars="none" />
 
 
-    <!-- Ô nhập bài viết -->
+    <!-- ================================================= -->
+    <!-- Nhập bài viết -->
+    <!-- ================================================= -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -61,13 +72,14 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/nen_xephang_trichdan"
+            android:fontFamily="@font/juve_normal"
             android:hint="Viết tin nhắn..."
             android:inputType="textCapSentences|textMultiLine"
             android:maxLines="3"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#7E8999"
+            android:textColor="#111111"
+            android:textColorHint="#A9A9A9"
             android:textSize="13sp" />
 
         <TextView
@@ -75,21 +87,24 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
+            android:background="@drawable/nen_xephang_tabchon"
+            android:fontFamily="@font/juve_normal"
             android:gravity="center"
             android:text="➤"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:background="@drawable/nen_xephang_tabchon" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 
 
+    <!-- Giới hạn -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:fontFamily="@font/juve_normal"
         android:text="Tối đa 3 tin nhắn/ngày"
-        android:textColor="#7E8999"
-        android:textSize="10sp" />
+        android:textColor="#7C8492"
+        android:textSize="11sp" />
 
 </LinearLayout>

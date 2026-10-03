@@ -427,7 +427,7 @@ public class XepHang extends Fragment {
                 Color.parseColor("#AAB4C5");
 
         int mauChon =
-                Color.WHITE;
+                Color.parseColor("#37659C");
 
 
         tabLuotChoi.setTextColor(

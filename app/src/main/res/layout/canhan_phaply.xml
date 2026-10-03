@@ -55,7 +55,7 @@
             android:fontFamily="@font/juve_normal"
             android:text="Chính sách quyền riêng tư"
             android:textColor="#111111"
-            android:textSize="13sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
 
@@ -109,7 +109,7 @@
             android:fontFamily="@font/juve_normal"
             android:text="Điều khoản sử dụng"
             android:textColor="#111111"
-            android:textSize="13sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
 

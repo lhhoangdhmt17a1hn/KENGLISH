@@ -16,51 +16,51 @@
     <LinearLayout
         android:id="@+id/btn_chon_bo_tu"
         android:layout_width="0dp"
-        android:layout_height="92dp"
+        android:layout_height="62dp"
         android:layout_columnWeight="1"
-        android:layout_margin="5dp"
+        android:layout_margin="4dp"
         android:background="@drawable/nen_luyentap_boloc"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingStart="13dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="13dp"
+        android:paddingBottom="8dp">
 
-        <!-- Tiêu đề -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/juve_normal"
             android:text="Bộ từ"
-            android:textColor="#9DA7B8"
+            android:textColor="#7C8492"
             android:textSize="13sp" />
 
-
-        <!-- Ô hiển thị giá trị đang chọn -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/nen_luyentap_ochon"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="14dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/txt_bo_tu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="Tất cả bộ từ"
-                android:textColor="#FFFFFF"
-                android:textSize="11sp"
-                android:textStyle="bold" />
+                android:ellipsize="end"
+                android:fontFamily="@font/juve_headin"
+                android:maxLines="1"
+                android:text="TOEIC_Vocabulary"
+                android:textColor="#111111"
+                android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/img_mui_ten_bo_tu"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
+                android:contentDescription="Mở danh sách bộ từ"
                 android:src="@drawable/ic_arrowdown"
-                app:tint="#FFFFFF" />
+                app:tint="#111111" />
 
         </LinearLayout>
 
@@ -74,51 +74,49 @@
     <LinearLayout
         android:id="@+id/btn_chon_trang_thai"
         android:layout_width="0dp"
-        android:layout_height="92dp"
+        android:layout_height="62dp"
         android:layout_columnWeight="1"
-        android:layout_margin="5dp"
+        android:layout_margin="4dp"
         android:background="@drawable/nen_luyentap_boloc"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingStart="13dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="13dp"
+        android:paddingBottom="8dp">
 
-        <!-- Tiêu đề -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/juve_normal"
             android:text="Trạng thái"
-            android:textColor="#9DA7B8"
+            android:textColor="#7C8492"
             android:textSize="13sp" />
 
-
-        <!-- Ô hiển thị giá trị đang chọn -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/nen_luyentap_ochon"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="14dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/txt_trang_thai"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:fontFamily="@font/juve_headin"
                 android:text="Đã thuộc"
-                android:textColor="#FFFFFF"
-                android:textSize="11sp"
-                android:textStyle="bold" />
+                android:textColor="#111111"
+                android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/img_mui_ten_trang_thai"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
+                android:contentDescription="Mở trạng thái"
                 android:src="@drawable/ic_arrowdown"
-                app:tint="#FFFFFF" />
+                app:tint="#111111" />
 
         </LinearLayout>
 
@@ -132,51 +130,49 @@
     <LinearLayout
         android:id="@+id/btn_chon_thu_tu"
         android:layout_width="0dp"
-        android:layout_height="92dp"
+        android:layout_height="62dp"
         android:layout_columnWeight="1"
-        android:layout_margin="5dp"
+        android:layout_margin="4dp"
         android:background="@drawable/nen_luyentap_boloc"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingStart="13dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="13dp"
+        android:paddingBottom="8dp">
 
-        <!-- Tiêu đề -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/juve_normal"
             android:text="Thứ tự"
-            android:textColor="#9DA7B8"
+            android:textColor="#7C8492"
             android:textSize="13sp" />
 
-
-        <!-- Ô hiển thị giá trị đang chọn -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/nen_luyentap_ochon"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="14dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/txt_thu_tu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:fontFamily="@font/juve_headin"
                 android:text="Ngẫu nhiên"
-                android:textColor="#FFFFFF"
-                android:textSize="11sp"
-                android:textStyle="bold" />
+                android:textColor="#111111"
+                android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/img_mui_ten_thu_tu"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
+                android:contentDescription="Mở thứ tự"
                 android:src="@drawable/ic_arrowdown"
-                app:tint="#FFFFFF" />
+                app:tint="#111111" />
 
         </LinearLayout>
 
@@ -190,51 +186,49 @@
     <LinearLayout
         android:id="@+id/btn_chon_so_luong"
         android:layout_width="0dp"
-        android:layout_height="92dp"
+        android:layout_height="62dp"
         android:layout_columnWeight="1"
-        android:layout_margin="5dp"
+        android:layout_margin="4dp"
         android:background="@drawable/nen_luyentap_boloc"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingStart="13dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="13dp"
+        android:paddingBottom="8dp">
 
-        <!-- Tiêu đề -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/juve_normal"
             android:text="Số lượng"
-            android:textColor="#9DA7B8"
+            android:textColor="#7C8492"
             android:textSize="13sp" />
 
-
-        <!-- Ô hiển thị giá trị đang chọn -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/nen_luyentap_ochon"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="14dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/txt_so_luong"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:fontFamily="@font/juve_headin"
                 android:text="10 từ"
-                android:textColor="#FFFFFF"
-                android:textSize="11sp"
-                android:textStyle="bold" />
+                android:textColor="#111111"
+                android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/img_mui_ten_so_luong"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
+                android:contentDescription="Mở số lượng"
                 android:src="@drawable/ic_arrowdown"
-                app:tint="#FFFFFF" />
+                app:tint="#111111" />
 
         </LinearLayout>
 

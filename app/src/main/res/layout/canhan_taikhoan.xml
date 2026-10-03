@@ -54,7 +54,7 @@
             android:fontFamily="@font/juve_normal"
             android:text="Đăng xuất"
             android:textColor="#D64545"
-            android:textSize="13sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
 
@@ -115,7 +115,7 @@
                 android:fontFamily="@font/juve_normal"
                 android:text="Xóa tài khoản"
                 android:textColor="#D64545"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
 
@@ -127,7 +127,7 @@
                 android:fontFamily="@font/juve_normal"
                 android:text="Xóa vĩnh viễn dữ liệu cá nhân của bạn"
                 android:textColor="#7C8492"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 

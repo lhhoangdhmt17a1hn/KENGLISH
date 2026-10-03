@@ -2,62 +2,74 @@
 
 <!--
     Màn hình Cửa hàng.
-    Các phần giao diện lớn được tách thành component riêng.
+    Chức năng hiện đang trong quá trình phát triển.
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    android:background="#182230"
     android:paddingStart="16dp"
-    android:paddingTop="30dp"
-    android:paddingEnd="16dp">
+    android:paddingTop="24dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="24dp">
 
-    <!-- Tiêu đề và số xu -->
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <!-- ================================================= -->
+    <!-- Tiêu đề trang -->
+    <!-- ================================================= -->
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:fontFamily="@font/juve_headin"
+        android:text="CỬA HÀNG"
+        android:textColor="#111111"
+        android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cửa hàng"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:textStyle="bold" />
 
-        <include
-            layout="@layout/cuahang_thanhxu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <!-- ================================================= -->
+    <!-- Nội dung đang phát triển -->
+    <!-- ================================================= -->
 
-    </LinearLayout>
-
-    <!-- Thanh chuyển loại sản phẩm -->
-    <include
-        layout="@layout/cuahang_tab"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="28dp" />
-
-    <!-- Danh sách sản phẩm -->
-    <GridView
-        android:id="@+id/grid_san_pham"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="20dp"
-        android:numColumns="2"
-        android:horizontalSpacing="12dp"
-        android:verticalSpacing="12dp"
-        android:clipToPadding="false"
-        android:paddingBottom="24dp"
-        android:scrollbars="none"
-        android:stretchMode="columnWidth" />
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Icon -->
+        <ImageView
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:contentDescription="Đang phát triển"
+            android:scaleType="centerInside"
+            android:src="@drawable/img_dang_phat_trien" />
+
+        <!-- Thông báo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/juve_headin"
+            android:text="Đang phát triển"
+            android:textColor="#111111"
+            android:textSize="17sp" />
+
+        <!-- Mô tả -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/juve_normal"
+            android:gravity="center"
+            android:text="Tính năng này sẽ sớm được cập nhật"
+            android:textColor="#7C8492"
+            android:textSize="15sp" />
+
+    </LinearLayout>
 
 </LinearLayout>

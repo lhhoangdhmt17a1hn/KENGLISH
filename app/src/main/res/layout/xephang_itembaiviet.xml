@@ -5,24 +5,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="bottom">
+    android:gravity="top"
+    android:orientation="horizontal">
 
+
+    <!-- Ảnh đại diện -->
     <ImageView
         android:id="@+id/img_anh_dai_dien_bai_viet"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginEnd="10dp"
-        android:src="@android:drawable/sym_def_app_icon"
-        android:contentDescription="Ảnh đại diện" />
+        android:contentDescription="Ảnh đại diện"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/sym_def_app_icon" />
 
+
+    <!-- Nội dung -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical"
         android:background="@drawable/nen_xephang_baiviet"
+        android:orientation="vertical"
         android:padding="12dp">
+
 
         <!-- Người đăng + thời gian -->
         <LinearLayout
@@ -36,30 +42,34 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/juve_normal"
                 android:text="Người dùng"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textColor="#111111"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/txt_thoi_gian_bai_viet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/juve_normal"
                 android:text="12:10"
-                android:textColor="#7E8999"
-                android:textSize="10sp" />
+                android:textColor="#A9A9A9"
+                android:textSize="11sp" />
 
         </LinearLayout>
 
+
+        <!-- Nội dung bài viết -->
         <TextView
             android:id="@+id/txt_noi_dung_bai_viet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/juve_normal"
+            android:lineSpacingExtra="3dp"
             android:text="Nội dung bài viết"
-            android:textColor="#E8ECF2"
-            android:textSize="13sp"
-            android:lineSpacingExtra="3dp" />
+            android:textColor="#4F4F4F"
+            android:textSize="13sp" />
 
     </LinearLayout>
 

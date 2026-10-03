@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="64dp"
+    android:background="#FFFFFF"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingStart="12dp"
     android:paddingEnd="12dp">
+
 
     <!-- Hạng -->
     <TextView
         android:id="@+id/txt_hang"
         android:layout_width="42dp"
         android:layout_height="match_parent"
+        android:fontFamily="@font/juve_headin"
         android:gravity="center"
         android:text="1"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:textColor="#111111"
+        android:textSize="15sp" />
 
 
     <!-- Ảnh đại diện -->
@@ -39,12 +42,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_weight="1"
-        android:maxLines="1"
         android:ellipsize="end"
+        android:fontFamily="@font/juve_normal"
+        android:maxLines="1"
         android:text="Tên người dùng"
-        android:textColor="#FFFFFF"
-        android:textSize="13sp"
-        android:textStyle="bold" />
+        android:textColor="#111111"
+        android:textSize="13sp" />
 
 
     <!-- Điểm xếp hạng -->
@@ -54,17 +57,15 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <!-- Số điểm / streak -->
         <TextView
             android:id="@+id/txt_diem_xep_hang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/juve_normal"
             android:text="265"
-            android:textColor="#FFFFFF"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            android:textColor="#37659C"
+            android:textSize="13sp" />
 
-        <!-- Icon lượt chơi / streak -->
         <ImageView
             android:id="@+id/img_icon_diem"
             android:layout_width="18dp"
@@ -73,7 +74,7 @@
             android:contentDescription="Loại điểm"
             android:scaleType="centerInside"
             android:src="@drawable/ic_tiaset"
-            app:tint="#FFD43B" />
+            app:tint="#37659C" />
 
     </LinearLayout>
 
