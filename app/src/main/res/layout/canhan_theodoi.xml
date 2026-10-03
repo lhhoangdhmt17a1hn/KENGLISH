@@ -1,64 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--
-    Component mạng xã hội.
-    Chứa các liên kết mạng xã hội của Kenglish.
--->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
-    android:background="@drawable/nen_canhan_card"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="14dp">
+    android:background="#FFFFFF"
+    android:orientation="vertical">
 
 
-    <!-- Tiêu đề -->
+    <!-- Tiêu đề bên trái -->
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Theo dõi chúng tôi"
-        android:textColor="#F4F6FA"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/juve_headin"
+        android:gravity="start"
+        android:text="THEO DÕI CHÚNG TÔI"
+        android:textColor="#111111"
+        android:textSize="17sp" />
 
 
-    <!-- Danh sách mạng xã hội -->
+    <!-- Icon nằm giữa -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
 
         <!-- Facebook -->
-        <TextView
+        <ImageView
             android:id="@+id/btn_facebook"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/logo_facebook"
             android:clickable="true"
+            android:contentDescription="Facebook"
             android:focusable="true"
-            android:gravity="center"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:src="@drawable/logo_facebook"
+            app:tint="#37659C" />
 
 
         <!-- Instagram -->
-        <TextView
+        <ImageView
             android:id="@+id/btn_instagram"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="20dp"
-            android:background="@drawable/logo_instagram"
             android:clickable="true"
+            android:contentDescription="Instagram"
             android:focusable="true"
-            android:gravity="center"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp" />
+            android:src="@drawable/logo_instagram"
+            app:tint="#37659C" />
 
     </LinearLayout>
 

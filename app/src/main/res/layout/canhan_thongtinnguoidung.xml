@@ -2,26 +2,23 @@
 
 <!--
     Component thông tin người dùng.
-    Hiển thị avatar, tên, email, loại tài khoản,
-    nâng cấp PRO và chế độ sáng/tối.
+    Thiết kế trắng - đen - xanh theo giao diện mới Kenglish.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_thong_tin_nguoi_dung"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
-    android:background="@drawable/nen_canhan_card"
-    android:orientation="vertical"
-    android:padding="14dp"
-    android:clickable="true"
-    android:focusable="true">
+    android:orientation="vertical">
 
 
-    <!-- Thông tin cơ bản -->
+    <!-- ================= THÔNG TIN NGƯỜI DÙNG ================= -->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="54dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -29,18 +26,18 @@
         <!-- Ảnh đại diện -->
         <ImageView
             android:id="@+id/img_anh_dai_dien"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:contentDescription="Ảnh đại diện"
-            android:src="@drawable/nen_anh_dai_dien"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_logo_kenglish" />
 
 
-        <!-- Tên và email -->
+        <!-- Tên + email -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -52,23 +49,33 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+
+                <!-- Tên -->
                 <TextView
                     android:id="@+id/txt_ho_ten"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/juve_headin"
                     android:text="Lê Trung Kiên"
-                    android:textColor="#F4F6FA"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textColor="#111111"
+                    android:textSize="17sp" />
 
+
+                <!-- Loại tài khoản -->
                 <TextView
                     android:id="@+id/txt_loai_tai_khoan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="(free)"
-                    android:textColor="#8F99AA"
-                    android:textSize="11sp" />
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/nen_canhan_free"
+                    android:fontFamily="@font/juve_normal"
+                    android:paddingStart="7dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="7dp"
+                    android:paddingBottom="2dp"
+                    android:text="Free"
+                    android:textColor="#37659C"
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
@@ -78,57 +85,51 @@
                 android:id="@+id/txt_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/juve_normal"
                 android:text="ltkien.aug6@gmail.com"
-                android:textColor="#9CA6B7"
-                android:textSize="10sp" />
+                android:textColor="#7C8492"
+                android:textSize="13sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
 
-    <!-- Nâng cấp và giao diện -->
+    <!-- ================= NÂNG CẤP PRO ================= -->
+
     <LinearLayout
+        android:id="@+id/btn_nang_cap_pro"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/nen_canhan_pro"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
 
 
-        <!-- Nâng cấp PRO -->
-        <LinearLayout
-            android:id="@+id/btn_nang_cap_pro"
+        <!-- Icon PRO -->
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="PRO"
+            app:srcCompat="@drawable/ic_vip"
+            app:tint="#37659C" />
+
+
+        <!-- Nội dung -->
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@drawable/nen_canhan_pro"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
-
-            <!-- Icon PRO -->
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="PRO"
-                app:srcCompat="@drawable/ic_vip"
-                app:tint="#FFFFFF" />
-
-            <!-- Nội dung -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="NÂNG CẤP PRO"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/juve_headin"
+            android:text="NÂNG CẤP PRO"
+            android:textColor="#37659C"
+            android:textSize="11sp" />
 
 
         <!-- Khoảng trống -->
@@ -138,37 +139,13 @@
             android:layout_weight="1" />
 
 
-        <!-- Chế độ giao diện -->
-        <LinearLayout
-            android:id="@+id/btn_che_do_giao_dien"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:background="@drawable/nen_canhan_chedo"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <!-- Chế độ sáng -->
-            <ImageView
-                android:id="@+id/img_che_do_sang"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:contentDescription="Chế độ sáng"
-                app:srcCompat="@drawable/ic_mattroi"
-                app:tint="#8F99AA" />
-
-            <!-- Chế độ tối -->
-            <ImageView
-                android:id="@+id/img_che_do_toi"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="18dp"
-                android:contentDescription="Chế độ tối"
-                app:srcCompat="@drawable/ic_mattrang"
-                app:tint="#FFC93C" />
-
-        </LinearLayout>
+        <!-- Mũi tên -->
+        <ImageView
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:contentDescription="Đi tiếp"
+            android:src="@drawable/ic_muitenphai"
+            app:tint="#37659C" />
 
     </LinearLayout>
 

@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--
-    Nền nút nâng cấp PRO.
--->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <gradient
-        android:angle="0"
-        android:startColor="#FFD447"
-        android:endColor="#FF9F32" />
+    <solid android:color="#EEF4FB" />
 
-    <corners android:radius="30dp" />
+    <corners android:radius="6dp" />
 
 </shape>

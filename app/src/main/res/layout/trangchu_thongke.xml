@@ -81,7 +81,7 @@
                 android:fontFamily="@font/juve_normal"
                 android:text="Tổng từ"
                 android:textColor="#7C8492"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -118,7 +118,7 @@
                 android:fontFamily="@font/juve_normal"
                 android:text="Đã thuộc"
                 android:textColor="#7C8492"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -155,7 +155,7 @@
                 android:fontFamily="@font/juve_normal"
                 android:text="Tiến độ"
                 android:textColor="#7C8492"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -199,7 +199,7 @@
                     android:fontFamily="@font/juve_normal"
                     android:text="Từ đến hạn"
                     android:textColor="#7C8492"
-                    android:textSize="11sp" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
