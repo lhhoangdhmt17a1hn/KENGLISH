@@ -126,6 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/juve_normal"
+                android:textStyle="bold"
                 android:text="Đăng ký"
                 android:textColor="#37659C"
                 android:textSize="15sp" />

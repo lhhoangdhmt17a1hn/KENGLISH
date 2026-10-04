@@ -42,7 +42,8 @@
         <include
             layout="@layout/trangchu_hanhdongnhanh" />
 
-
+        <include
+            layout="@layout/trangchu_lichsutratu" />
 
 
 
