@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.kenglish.api.ApiService;
@@ -32,6 +33,7 @@ import retrofit2.Response;
 public class CaNhan extends Fragment {
 
     private LinearLayout cardDangXuat;
+    private LinearLayout cardXoaTaiKhoan;
     private LinearLayout cardCongDongZalo;
     private TextView txtHoTen;
     private ImageView btnFacebook;
@@ -67,6 +69,7 @@ public class CaNhan extends Fragment {
      */
     private void anhXa(View view) {
         cardDangXuat = view.findViewById(R.id.card_dang_xuat);
+        cardXoaTaiKhoan = view.findViewById(R.id.card_xoa_tai_khoan);
         cardCongDongZalo = view.findViewById(R.id.card_cong_dong_zalo);
         txtHoTen = view.findViewById(R.id.txt_ho_ten);
         btnFacebook = view.findViewById(R.id.btn_facebook);
@@ -92,6 +95,10 @@ public class CaNhan extends Fragment {
 
         cardDangXuat.setOnClickListener(v -> {
             xuLyDangXuat();
+        });
+
+        cardXoaTaiKhoan.setOnClickListener(v -> {
+            hienThiXacNhanXoaTaiKhoan();
         });
 
         cardCongDongZalo.setOnClickListener(v -> {
@@ -158,7 +165,6 @@ public class CaNhan extends Fragment {
     private void xuLyMangXaHoi() {
         // Facebook / Instagram
     }
-
 
     /**
      * Gửi yêu cầu đăng xuất tới backend.
@@ -243,18 +249,99 @@ public class CaNhan extends Fragment {
         Intent intent =
                 new Intent(requireContext(), DangNhapActivity.class);
 
+        intent.setFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK
+        );
+
         startActivity(intent);
 
         requireActivity().overridePendingTransition(
                 R.anim.slide_in_left,
                 R.anim.slide_out_right
         );
-
-        requireActivity().finish();
     }
 
+    private void hienThiXacNhanXoaTaiKhoan() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Xóa tài khoản")
+                .setMessage(
+                        "Bạn có chắc chắn muốn xóa tài khoản? " +
+                                "Bạn sẽ cần đăng ký và xác thực email lại nếu muốn sử dụng tài khoản này."
+                )
+                .setNegativeButton("Hủy", null)
+                .setPositiveButton("Xóa", (dialog, which) -> {
+                    xoaTaiKhoan();
+                })
+                .show();
+    }
 
-    private void xuLyXoaTaiKhoan() {
-        // Xác nhận xóa tài khoản
+    private void xoaTaiKhoan() {
+
+        SharedPreferences sharedPreferences =
+                requireContext().getSharedPreferences(
+                        "Kenglish",
+                        Context.MODE_PRIVATE
+                );
+
+        String token =
+                sharedPreferences.getString("token", null);
+
+        if (token == null) {
+            chuyenVeDangNhap();
+            return;
+        }
+
+        ApiService apiService =
+                RetrofitClient.getClient().create(ApiService.class);
+
+        apiService.xoaTaiKhoan("Bearer " + token)
+                .enqueue(new Callback<ApiResponse>() {
+
+                    @Override
+                    public void onResponse(
+                            Call<ApiResponse> call,
+                            Response<ApiResponse> response
+                    ) {
+
+                        if (response.isSuccessful()
+                                && response.body() != null
+                                && response.body().isThanhCong()) {
+
+                            // Xóa toàn bộ thông tin đăng nhập local
+                            sharedPreferences
+                                    .edit()
+                                    .clear()
+                                    .apply();
+
+                            Toast.makeText(
+                                    requireContext(),
+                                    "Xóa tài khoản thành công",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+
+                            chuyenVeDangNhap();
+
+                        } else {
+                            Toast.makeText(
+                                    requireContext(),
+                                    "Không thể xóa tài khoản",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(
+                            Call<ApiResponse> call,
+                            Throwable t
+                    ) {
+                        Toast.makeText(
+                                requireContext(),
+                                "Không thể kết nối đến server",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+                });
     }
 }
