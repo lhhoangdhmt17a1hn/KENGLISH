@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/nen_popup"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/btn_dong_popup"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:clickable="true"
+            android:padding="8dp"
+            android:src="@drawable/ic_close"
+            app:tint="#37659C" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/juve_headin"
+            android:text="THÊM TỪ"
+            android:textColor="#111111"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+
+    <!-- Bộ từ -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/juve_headin"
+        android:text="THÊM VÀO BỘ TỪ"
+        android:textColor="#111111"
+        android:textSize="13sp" />
+
+
+    <Spinner
+        android:id="@+id/spinner_bo_tu"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/nen_input_botu"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp" />
+
+
+    <!-- Từ vựng -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/juve_headin"
+        android:text="TỪ VỰNG"
+        android:textColor="#111111"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/edt_tu_vung"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/nen_input_botu"
+        android:fontFamily="@font/juve_normal"
+        android:hint="Ví dụ: hello"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:singleLine="true"
+        android:textColor="#4F4F4F"
+        android:textColorHint="#A9A9A9"
+        android:textSize="13sp" />
+
+
+    <!-- Phiên âm -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/juve_headin"
+        android:text="PHIÊN ÂM"
+        android:textColor="#111111"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/edt_phien_am"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/nen_input_botu"
+        android:fontFamily="@font/juve_normal"
+        android:hint="/həˈləʊ/"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:singleLine="true"
+        android:textColor="#4F4F4F"
+        android:textColorHint="#A9A9A9"
+        android:textSize="13sp" />
+
+
+    <!-- Nghĩa -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/juve_headin"
+        android:text="NGHĨA"
+        android:textColor="#111111"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/edt_nghia"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/nen_input_botu"
+        android:fontFamily="@font/juve_normal"
+        android:hint="Nhập nghĩa của từ"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:singleLine="true"
+        android:textColor="#4F4F4F"
+        android:textColorHint="#A9A9A9"
+        android:textSize="13sp" />
+
+
+    <!-- BUTTON -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_huy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/nen_nut_vien_xanh"
+            android:fontFamily="@font/juve_headin"
+            android:gravity="center"
+            android:text="HỦY"
+            android:textColor="#37659C"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/btn_luu_tu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_weight="2"
+            android:background="@drawable/nen_nut_xanh"
+            android:fontFamily="@font/juve_headin"
+            android:gravity="center"
+            android:text="LƯU TỪ"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

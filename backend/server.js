@@ -8,6 +8,8 @@ const ketNoi = require("./config/database");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const dictionaryRoutes = require("./routes/dictionaryRoutes");
+const boTuRoutes = require("./routes/boTuRoutes");
+const folderRoutes = require("./routes/folderRoutes");
 
 // Middleware
 app.use(cors());
@@ -16,6 +18,8 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/dictionary", dictionaryRoutes);
+app.use("/vocabulary", boTuRoutes);
+app.use("/folder", folderRoutes);
 
 // API kiểm tra server
 app.get("/", (req, res) => {
