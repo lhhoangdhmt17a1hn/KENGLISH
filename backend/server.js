@@ -6,12 +6,14 @@ require("dotenv").config();
 const app = express();
 const ketNoi = require("./config/database");
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 
 // API kiểm tra server
 app.get("/", (req, res) => {

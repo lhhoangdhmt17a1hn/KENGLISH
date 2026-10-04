@@ -73,7 +73,9 @@ async function xacThucEmail(req, res) {
             `UPDATE nguoi_dung
              SET email_da_xac_thuc = 1,
                  ma_xac_thuc = NULL,
-                 het_han_ma_xac_thuc = NULL
+                 het_han_ma_xac_thuc = NULL,
+                 da_xoa = 0,
+                 xoa_luc = NULL
              WHERE id = ?`,
             [nguoiDung.id]
         );

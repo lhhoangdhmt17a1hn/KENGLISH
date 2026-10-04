@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ public class CaNhan extends Fragment {
     private LinearLayout cardDangXuat;
     private LinearLayout cardCongDongZalo;
     private TextView txtHoTen;
+    private ImageView btnFacebook;
+    private ImageView btnInstagram;
 
 
     /**
@@ -66,6 +69,8 @@ public class CaNhan extends Fragment {
         cardDangXuat = view.findViewById(R.id.card_dang_xuat);
         cardCongDongZalo = view.findViewById(R.id.card_cong_dong_zalo);
         txtHoTen = view.findViewById(R.id.txt_ho_ten);
+        btnFacebook = view.findViewById(R.id.btn_facebook);
+        btnInstagram = view.findViewById(R.id.btn_instagram);
     }
 
     private void hienThiThongTinUser() {
@@ -96,6 +101,28 @@ public class CaNhan extends Fragment {
             Intent intent = new Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse(linkZalo)
+            );
+
+            startActivity(intent);
+        });
+
+        btnFacebook.setOnClickListener(v -> {
+            String linkFacebook = "https://www.facebook.com/ltk6805";
+
+            Intent intent = new Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(linkFacebook)
+            );
+
+            startActivity(intent);
+        });
+
+        btnInstagram.setOnClickListener(v -> {
+            String linkInstagram = "https://www.instagram.com/ltk6805";
+
+            Intent intent = new Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(linkInstagram)
             );
 
             startActivity(intent);

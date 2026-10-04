@@ -29,7 +29,8 @@ async function dangNhap(req, res) {
                 ten_hien_thi,
                 email,
                 mat_khau,
-                email_da_xac_thuc
+                email_da_xac_thuc,
+                da_xoa
              FROM nguoi_dung
              WHERE email = ?`,
             [emailNguoiDung]
@@ -44,6 +45,13 @@ async function dangNhap(req, res) {
         }
 
         const nguoiDung = ketQua[0];
+
+        if (nguoiDung.da_xoa == 1) {
+            return res.json({
+                thanh_cong: false,
+                thong_bao: "Email hoặc mật khẩu chưa đúng"
+            });
+        }
 
         // Kiểm tra mật khẩu
         const matKhauDung = await bcrypt.compare(
