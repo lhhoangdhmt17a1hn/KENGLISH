@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:fillViewport="true"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="30dp">
+
+
+        <!-- Thanh trên -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btn_quay_lai"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="Quay lại"
+                android:padding="7dp"
+                android:src="@drawable/ic_back"
+                app:tint="#111111" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/juve_headin"
+                android:text="CHI TIẾT TỪ"
+                android:textColor="#111111"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+        <!-- Từ vựng -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_tu_vung"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/juve_headin"
+                    android:text="apple"
+                    android:textColor="#111111"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/txt_ipa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/juve_normal"
+                    android:text="/ˈæpəl/"
+                    android:textColor="#7C8492"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+
+            <!-- Phát âm -->
+            <ImageView
+                android:id="@+id/btn_phat_am"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/nen_icon_xanh"
+                android:contentDescription="Phát âm"
+                android:padding="10dp"
+                android:src="@drawable/ic_volume"
+                app:tint="#37659C" />
+
+        </LinearLayout>
+
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:background="#E2E3E3" />
+
+
+        <!-- Tiêu đề nghĩa -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:fontFamily="@font/juve_headin"
+            android:text="NGHĨA CỦA TỪ"
+            android:textColor="#111111"
+            android:textSize="17sp" />
+
+
+        <!--
+            Các nghĩa lấy từ API sẽ được
+            thêm động vào LinearLayout này.
+        -->
+        <LinearLayout
+            android:id="@+id/layout_danh_sach_nghia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+
+            <!-- Dữ liệu mẫu để preview -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/juve_normal"
+                    android:text="Danh từ"
+                    android:textColor="#37659C"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/juve_normal"
+                    android:lineSpacingExtra="3dp"
+                    android:text="1. Quả táo, quả táo tây."
+                    android:textColor="#4F4F4F"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/juve_normal"
+                    android:text="Danh từ"
+                    android:textColor="#37659C"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/juve_normal"
+                    android:lineSpacingExtra="3dp"
+                    android:text="2. Cây táo, cây táo tây."
+                    android:textColor="#4F4F4F"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="#E2E3E3" />
+
+
+        <!-- Lưu từ -->
+        <TextView
+            android:id="@+id/btn_luu_tu"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/nen_nuttaobotu"
+            android:fontFamily="@font/juve_headin"
+            android:gravity="center"
+            android:text="+  LƯU VÀO BỘ TỪ"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

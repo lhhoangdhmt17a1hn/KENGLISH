@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_danh_sach_goi_y"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/nen_goiytu"
+    android:orientation="vertical"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp" />

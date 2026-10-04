@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/khung_lich_su_tra_tu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="18dp"
+    android:orientation="vertical">
+
+
+    <!-- Tiêu đề -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/juve_headin"
+            android:text="TRA GẦN ĐÂY"
+            android:textColor="#111111"
+            android:textSize="17sp" />
+
+
+        <ImageView
+            android:id="@+id/btn_xoa_lich_su"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="Xóa lịch sử"
+            android:padding="7dp"
+            android:src="@drawable/ic_thungrac"
+            app:tint="#D64545" />
+
+    </LinearLayout>
+
+
+    <!-- Khung danh sách lịch sử -->
+    <LinearLayout
+        android:id="@+id/layout_lich_su_tra_tu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/nen_lichsutratu"
+        android:orientation="vertical" />
+
+
+</LinearLayout>
