@@ -1,16 +1,26 @@
 package com.example.kenglish.api;
 
 import com.example.kenglish.model.ApiResponse;
+import com.example.kenglish.model.BoTuModel;
+import com.example.kenglish.model.ChiTietFolder;
 import com.example.kenglish.model.DangKyRequest;
 import com.example.kenglish.model.DangNhapRequest;
 import com.example.kenglish.model.DangNhapResponse;
+import com.example.kenglish.model.Folder;
+import com.example.kenglish.model.TaoBoTuRequest;
+import com.example.kenglish.model.TaoFolderRequest;
+import com.example.kenglish.model.ThemTuRequest;
+import com.example.kenglish.model.TuVung;
 import com.example.kenglish.model.XacThucEmailRequest;
 import com.example.kenglish.model.DictionaryResponse;
 import com.example.kenglish.model.SuggestionResponse;
 import com.example.kenglish.model.LichSuTraTuResponse;
 import com.example.kenglish.model.ThemLichSuRequest;
 
+import java.util.List;
+
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -69,5 +79,48 @@ public interface ApiService {
     @DELETE("dictionary/history")
     Call<ApiResponse> xoaLichSuTraTu(
             @Header("Authorization") String token
+    );
+
+    // ==================== FOLDER ====================
+
+    @POST("folder")
+    Call<ApiResponse<Folder>> taoFolder(
+            @Header("Authorization") String token,
+            @Body TaoFolderRequest request
+    );
+
+    @GET("folder")
+    Call<ApiResponse<List<Folder>>> layDanhSachFolder(
+            @Header("Authorization") String token
+    );
+
+    @GET("folder/{folderId}/vocabulary")
+    Call<ApiResponse<ChiTietFolder>> layChiTietFolder(
+            @Header("Authorization") String token,
+            @Path("folderId") int folderId
+    );
+
+
+// ==================== BỘ TỪ ====================
+
+    @POST("vocabulary")
+    Call<ApiResponse<BoTuModel>> taoBoTu(
+            @Header("Authorization") String token,
+            @Body TaoBoTuRequest request
+    );
+
+    @GET("vocabulary")
+    Call<ApiResponse<List<BoTuModel>>> layDanhSachBoTu(
+            @Header("Authorization") String token
+    );
+
+
+// ==================== TỪ VỰNG ====================
+
+    @POST("vocabulary/{boTuId}/words")
+    Call<ApiResponse<TuVung>> themTu(
+            @Header("Authorization") String token,
+            @Path("boTuId") int boTuId,
+            @Body ThemTuRequest request
     );
 }

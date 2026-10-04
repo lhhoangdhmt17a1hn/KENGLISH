@@ -1,5 +1,7 @@
 package com.example.kenglish;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +17,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.kenglish.api.ApiService;
+import com.example.kenglish.api.RetrofitClient;
+import com.example.kenglish.model.ApiResponse;
+import com.example.kenglish.model.BoTuModel;
+import com.example.kenglish.model.Folder;
+import com.example.kenglish.model.TaoBoTuRequest;
+import com.example.kenglish.model.TaoFolderRequest;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -23,15 +36,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
  */
 public class BoTu extends Fragment {
 
-    /*
-     * Nút tạo bộ từ hiện tại vẫn là TextView.
-     */
     private TextView btnTaoBoTu;
-
-    /*
-     * Component tạo folder đã được tách thành
-     * LinearLayout gồm icon + TextView.
-     */
     private LinearLayout btnTaoFolder;
 
 
@@ -78,17 +83,10 @@ public class BoTu extends Fragment {
      */
     private void xuLySuKien() {
 
-        /*
-         * Mở popup tạo bộ từ.
-         */
         btnTaoBoTu.setOnClickListener(v -> {
             moPopupTaoBoTu();
         });
 
-
-        /*
-         * Mở popup tạo folder.
-         */
         btnTaoFolder.setOnClickListener(v -> {
             moPopupTaoFolder();
         });
@@ -105,22 +103,17 @@ public class BoTu extends Fragment {
                         requireContext()
                 );
 
-
         View popupView =
                 getLayoutInflater().inflate(
                         R.layout.botu_popup_taobotu,
                         null
                 );
 
-
         dialog.setContentView(
                 popupView
         );
 
 
-        /*
-         * Ánh xạ các View trong popup.
-         */
         EditText edtTenBoTu =
                 popupView.findViewById(
                         R.id.edt_ten_bo_tu
@@ -137,9 +130,6 @@ public class BoTu extends Fragment {
                 );
 
 
-        /*
-         * Xử lý khi nhấn nút xác nhận.
-         */
         btnXacNhan.setOnClickListener(v -> {
 
             String tenBoTu =
@@ -155,9 +145,6 @@ public class BoTu extends Fragment {
                             .trim();
 
 
-            /*
-             * Kiểm tra tên bộ từ.
-             */
             if (tenBoTu.isEmpty()) {
 
                 edtTenBoTu.setError(
@@ -170,41 +157,17 @@ public class BoTu extends Fragment {
             }
 
 
-            /*
-             * Hiện tại mới xử lý giao diện.
-             *
-             * Sau này sẽ lưu:
-             * - tenBoTu
-             * - moTa
-             *
-             * vào database tại đây.
-             */
-
-
-            Toast.makeText(
-                    requireContext(),
-                    "Đã tạo bộ từ: " + tenBoTu,
-                    Toast.LENGTH_SHORT
-            ).show();
-
-
-            /*
-             * Đóng popup sau khi tạo thành công.
-             */
-            dialog.dismiss();
+            taoBoTu(
+                    tenBoTu,
+                    moTa,
+                    dialog
+            );
         });
 
 
-        /*
-         * Hiển thị BottomSheet.
-         */
         dialog.show();
 
 
-        /*
-         * Tự động focus vào ô tên bộ từ
-         * và mở bàn phím.
-         */
         moBanPhim(
                 edtTenBoTu,
                 dialog
@@ -222,22 +185,17 @@ public class BoTu extends Fragment {
                         requireContext()
                 );
 
-
         View popupView =
                 getLayoutInflater().inflate(
                         R.layout.botu_popup_taofolder,
                         null
                 );
 
-
         dialog.setContentView(
                 popupView
         );
 
 
-        /*
-         * Ánh xạ các View trong popup.
-         */
         EditText edtTenFolder =
                 popupView.findViewById(
                         R.id.edt_ten_folder
@@ -249,9 +207,6 @@ public class BoTu extends Fragment {
                 );
 
 
-        /*
-         * Xử lý khi nhấn nút xác nhận.
-         */
         btnXacNhan.setOnClickListener(v -> {
 
             String tenFolder =
@@ -261,9 +216,6 @@ public class BoTu extends Fragment {
                             .trim();
 
 
-            /*
-             * Kiểm tra tên folder.
-             */
             if (tenFolder.isEmpty()) {
 
                 edtTenFolder.setError(
@@ -276,38 +228,16 @@ public class BoTu extends Fragment {
             }
 
 
-            /*
-             * Hiện tại mới xử lý giao diện.
-             *
-             * Sau này sẽ lưu folder
-             * vào database tại đây.
-             */
-
-
-            Toast.makeText(
-                    requireContext(),
-                    "Đã tạo folder: " + tenFolder,
-                    Toast.LENGTH_SHORT
-            ).show();
-
-
-            /*
-             * Đóng popup sau khi tạo thành công.
-             */
-            dialog.dismiss();
+            taoFolder(
+                    tenFolder,
+                    dialog
+            );
         });
 
 
-        /*
-         * Hiển thị BottomSheet.
-         */
         dialog.show();
 
 
-        /*
-         * Tự động focus vào ô tên folder
-         * và mở bàn phím.
-         */
         moBanPhim(
                 edtTenFolder,
                 dialog
@@ -325,10 +255,8 @@ public class BoTu extends Fragment {
 
         editText.requestFocus();
 
-
         Window window =
                 dialog.getWindow();
-
 
         if (window != null) {
 
@@ -337,5 +265,255 @@ public class BoTu extends Fragment {
                             .SOFT_INPUT_STATE_ALWAYS_VISIBLE
             );
         }
+    }
+
+
+    /**
+     * Gửi yêu cầu tạo bộ từ mới lên server.
+     *
+     * folder_id = null vì bộ từ được tạo
+     * trực tiếp từ màn hình Bộ từ.
+     */
+    private void taoBoTu(
+            String tenBoTu,
+            String moTa,
+            BottomSheetDialog dialog) {
+
+        SharedPreferences sharedPreferences =
+                requireContext().getSharedPreferences(
+                        "Kenglish",
+                        Context.MODE_PRIVATE
+                );
+
+        String token =
+                sharedPreferences.getString(
+                        "token",
+                        null
+                );
+
+
+        if (token == null) {
+
+            Toast.makeText(
+                    requireContext(),
+                    "Phiên đăng nhập không hợp lệ",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+
+        TaoBoTuRequest request =
+                new TaoBoTuRequest(
+                        tenBoTu,
+                        moTa,
+                        null
+                );
+
+
+        ApiService apiService =
+                RetrofitClient
+                        .getClient()
+                        .create(ApiService.class);
+
+
+        apiService.taoBoTu(
+                "Bearer " + token,
+                request
+        ).enqueue(new Callback<ApiResponse<BoTuModel>>() {
+
+            @Override
+            public void onResponse(
+                    Call<ApiResponse<BoTuModel>> call,
+                    Response<ApiResponse<BoTuModel>> response) {
+
+                if (!isAdded()) {
+                    return;
+                }
+
+
+                if (response.isSuccessful()
+                        && response.body() != null) {
+
+                    ApiResponse<BoTuModel> ketQua =
+                            response.body();
+
+
+                    if (ketQua.isThanhCong()) {
+
+                        Toast.makeText(
+                                requireContext(),
+                                "Đã tạo bộ từ: " + tenBoTu,
+                                Toast.LENGTH_SHORT
+                        ).show();
+
+                        dialog.dismiss();
+
+                    } else {
+
+                        String thongBao = ketQua.getThongBao();
+
+                        if (thongBao == null || thongBao.isEmpty()) {
+                            thongBao = "Có lỗi xảy ra";
+                        }
+
+                        Toast.makeText(
+                                requireContext(),
+                                thongBao,
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+
+                } else {
+
+                    Toast.makeText(
+                            requireContext(),
+                            "Không thể tạo bộ từ",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+
+
+            @Override
+            public void onFailure(
+                    Call<ApiResponse<BoTuModel>> call,
+                    Throwable t) {
+
+                if (!isAdded()) {
+                    return;
+                }
+
+
+                Toast.makeText(
+                        requireContext(),
+                        "Không thể kết nối đến server",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
+    }
+
+
+    /**
+     * Gửi yêu cầu tạo folder mới lên server.
+     */
+    private void taoFolder(
+            String tenFolder,
+            BottomSheetDialog dialog) {
+
+        SharedPreferences sharedPreferences =
+                requireContext().getSharedPreferences(
+                        "Kenglish",
+                        Context.MODE_PRIVATE
+                );
+
+        String token =
+                sharedPreferences.getString(
+                        "token",
+                        null
+                );
+
+
+        if (token == null) {
+
+            Toast.makeText(
+                    requireContext(),
+                    "Phiên đăng nhập không hợp lệ",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+
+        TaoFolderRequest request =
+                new TaoFolderRequest(
+                        tenFolder
+                );
+
+
+        ApiService apiService =
+                RetrofitClient
+                        .getClient()
+                        .create(ApiService.class);
+
+
+        apiService.taoFolder(
+                "Bearer " + token,
+                request
+        ).enqueue(new Callback<ApiResponse<Folder>>() {
+
+            @Override
+            public void onResponse(
+                    Call<ApiResponse<Folder>> call,
+                    Response<ApiResponse<Folder>> response) {
+
+                if (!isAdded()) {
+                    return;
+                }
+
+
+                if (response.isSuccessful()
+                        && response.body() != null) {
+
+                    ApiResponse<Folder> ketQua =
+                            response.body();
+
+
+                    if (ketQua.isThanhCong()) {
+
+                        Toast.makeText(
+                                requireContext(),
+                                "Đã tạo folder: " + tenFolder,
+                                Toast.LENGTH_SHORT
+                        ).show();
+
+                        dialog.dismiss();
+
+                    } else {
+
+                        String thongBao = ketQua.getThongBao();
+
+                        if (thongBao == null || thongBao.isEmpty()) {
+                            thongBao = "Có lỗi xảy ra";
+                        }
+
+                        Toast.makeText(
+                                requireContext(),
+                                thongBao,
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+
+                } else {
+
+                    Toast.makeText(
+                            requireContext(),
+                            "Không thể tạo folder",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+
+
+            @Override
+            public void onFailure(
+                    Call<ApiResponse<Folder>> call,
+                    Throwable t) {
+
+                if (!isAdded()) {
+                    return;
+                }
+
+
+                Toast.makeText(
+                        requireContext(),
+                        "Không thể kết nối đến server",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
     }
 }
