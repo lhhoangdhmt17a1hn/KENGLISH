@@ -20,8 +20,8 @@ const themLichSuTraTu = async (req, res) => {
         if (!word || !word.trim()) {
 
             return res.status(400).json({
-                success: false,
-                message: "Vui lòng cung cấp từ cần lưu"
+                thanh_cong: false,
+                thong_bao: "Vui lòng cung cấp từ cần lưu"
             });
         }
         /*
@@ -94,8 +94,8 @@ const themLichSuTraTu = async (req, res) => {
 
 
         return res.json({
-            success: true,
-            message: "Đã lưu lịch sử tra từ"
+            thanh_cong: true,
+            thong_bao: "Đã lưu lịch sử tra từ"
         });
 
 
@@ -108,8 +108,8 @@ const themLichSuTraTu = async (req, res) => {
 
 
         return res.status(500).json({
-            success: false,
-            message: "Không thể lưu lịch sử tra từ"
+            thanh_cong: false,
+            thong_bao: "Không thể lưu lịch sử tra từ"
         });
     }
 };
@@ -146,7 +146,7 @@ const layLichSuTraTu = async (req, res) => {
 
 
         return res.json({
-            success: true,
+            thanh_cong: true,
             history: danhSach
         });
 
@@ -160,8 +160,8 @@ const layLichSuTraTu = async (req, res) => {
 
 
         return res.status(500).json({
-            success: false,
-            message: "Không thể lấy lịch sử tra từ"
+            thanh_cong: false,
+            thong_bao: "Không thể lấy lịch sử tra từ"
         });
     }
 };
@@ -189,8 +189,8 @@ const xoaLichSuTraTu = async (req, res) => {
 
 
         return res.json({
-            success: true,
-            message: "Đã xóa lịch sử tra từ"
+            thanh_cong: true,
+            thong_bao: "Đã xóa lịch sử tra từ"
         });
 
 
@@ -203,8 +203,8 @@ const xoaLichSuTraTu = async (req, res) => {
 
 
         return res.status(500).json({
-            success: false,
-            message: "Không thể xóa lịch sử tra từ"
+            thanh_cong: false,
+            thong_bao: "Không thể xóa lịch sử tra từ"
         });
     }
 };

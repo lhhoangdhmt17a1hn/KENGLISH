@@ -27,8 +27,8 @@ const layBoTuTheoFolder = async (req, res) => {
 
         if (folder.length === 0) {
             return res.status(404).json({
-                success: false,
-                message: "Folder không tồn tại"
+                thanh_cong: false,
+                thong_bao: "Folder không tồn tại"
             });
         }
 
@@ -57,7 +57,7 @@ const layBoTuTheoFolder = async (req, res) => {
 
 
         return res.status(200).json({
-            success: true,
+            thanh_cong: true,
 
             data: {
                 folder: folder[0],
@@ -70,8 +70,8 @@ const layBoTuTheoFolder = async (req, res) => {
         console.error("Lỗi lấy bộ từ trong folder:", error);
 
         return res.status(500).json({
-            success: false,
-            message: "Lỗi server"
+            thanh_cong: false,
+            thong_bao: "Lỗi server"
         });
     }
 };

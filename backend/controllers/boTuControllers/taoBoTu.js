@@ -12,8 +12,8 @@ const taoBoTu = async (req, res) => {
 
         if (!ten_bo_tu || !ten_bo_tu.trim()) {
             return res.status(400).json({
-                success: false,
-                message: "Tên bộ từ không được để trống"
+                thanh_cong: false,
+                thong_bao: "Tên bộ từ không được để trống"
             });
         }
 
@@ -22,8 +22,8 @@ const taoBoTu = async (req, res) => {
 
         if (tenBoTu.length > 100) {
             return res.status(400).json({
-                success: false,
-                message: "Tên bộ từ không được vượt quá 100 ký tự"
+                thanh_cong: false,
+                thong_bao: "Tên bộ từ không được vượt quá 100 ký tự"
             });
         }
 
@@ -46,8 +46,8 @@ const taoBoTu = async (req, res) => {
 
             if (folder.length === 0) {
                 return res.status(404).json({
-                    success: false,
-                    message: "Folder không tồn tại"
+                    thanh_cong: false,
+                    thong_bao: "Folder không tồn tại"
                 });
             }
         }
@@ -73,8 +73,8 @@ const taoBoTu = async (req, res) => {
 
 
         return res.status(201).json({
-            success: true,
-            message: "Tạo bộ từ thành công",
+            thanh_cong: true,
+            thong_bao: "Tạo bộ từ thành công",
 
             data: {
                 id: ketQua.insertId,
@@ -89,8 +89,8 @@ const taoBoTu = async (req, res) => {
         console.error("Lỗi tạo bộ từ:", error);
 
         return res.status(500).json({
-            success: false,
-            message: "Lỗi server"
+            thanh_cong: false,
+            thong_bao: "Lỗi server"
         });
     }
 };

@@ -20,15 +20,15 @@ const themTu = async (req, res) => {
         // Kiểm tra dữ liệu bắt buộc
         if (!tu_goc || !tu_goc.trim()) {
             return res.status(400).json({
-                success: false,
-                message: "Từ gốc không được để trống"
+                thanh_cong: false,
+                thong_bao: "Từ gốc không được để trống"
             });
         }
 
         if (!nghia_tieng_viet || !nghia_tieng_viet.trim()) {
             return res.status(400).json({
-                success: false,
-                message: "Nghĩa tiếng Việt không được để trống"
+                thanh_cong: false,
+                thong_bao: "Nghĩa tiếng Việt không được để trống"
             });
         }
 
@@ -50,8 +50,8 @@ const themTu = async (req, res) => {
 
         if (boTu.length === 0) {
             return res.status(404).json({
-                success: false,
-                message: "Bộ từ không tồn tại"
+                thanh_cong: false,
+                thong_bao: "Bộ từ không tồn tại"
             });
         }
 
@@ -85,8 +85,8 @@ const themTu = async (req, res) => {
 
 
         return res.status(201).json({
-            success: true,
-            message: "Thêm từ thành công",
+            thanh_cong: true,
+            thong_bao: "Thêm từ thành công",
 
             data: {
                 id: ketQua.insertId,
@@ -107,8 +107,8 @@ const themTu = async (req, res) => {
         console.error("Lỗi thêm từ:", error);
 
         return res.status(500).json({
-            success: false,
-            message: "Lỗi server"
+            thanh_cong: false,
+            thong_bao: "Lỗi server"
         });
     }
 };

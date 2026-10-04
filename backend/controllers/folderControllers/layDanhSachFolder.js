@@ -30,7 +30,7 @@ const layDanhSachFolder = async (req, res) => {
         );
 
         return res.status(200).json({
-            success: true,
+            thanh_cong: true,
             data: folders
         });
 
@@ -39,8 +39,8 @@ const layDanhSachFolder = async (req, res) => {
         console.error("Lỗi lấy folder:", error);
 
         return res.status(500).json({
-            success: false,
-            message: "Lỗi server"
+            thanh_cong: false,
+            thong_bao: "Lỗi server"
         });
     }
 };

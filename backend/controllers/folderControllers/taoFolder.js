@@ -7,8 +7,8 @@ const taoFolder = async (req, res) => {
 
         if (!ten_folder || !ten_folder.trim()) {
             return res.status(400).json({
-                success: false,
-                message: "Tên folder không được để trống"
+                thanh_cong: false,
+                thong_bao: "Tên folder không được để trống"
             });
         }
 
@@ -16,8 +16,8 @@ const taoFolder = async (req, res) => {
 
         if (tenFolder.length > 100) {
             return res.status(400).json({
-                success: false,
-                message: "Tên folder không được vượt quá 100 ký tự"
+                thanh_cong: false,
+                thong_bao: "Tên folder không được vượt quá 100 ký tự"
             });
         }
 
@@ -36,8 +36,8 @@ const taoFolder = async (req, res) => {
         );
 
         return res.status(201).json({
-            success: true,
-            message: "Tạo folder thành công",
+            thanh_cong: true,
+            thong_bao: "Tạo folder thành công",
             data: {
                 id: ketQua.insertId,
                 ten_folder: tenFolder
@@ -48,8 +48,8 @@ const taoFolder = async (req, res) => {
         console.error("Lỗi tạo folder:", error);
 
         return res.status(500).json({
-            success: false,
-            message: "Lỗi server"
+            thanh_cong: false,
+            thong_bao: "Lỗi server"
         });
     }
 };

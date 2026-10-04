@@ -27,8 +27,8 @@ const layDanhSachTu = async (req, res) => {
 
         if (boTu.length === 0) {
             return res.status(404).json({
-                success: false,
-                message: "Bộ từ không tồn tại"
+                thanh_cong: false,
+                thong_bao: "Bộ từ không tồn tại"
             });
         }
 
@@ -56,7 +56,7 @@ const layDanhSachTu = async (req, res) => {
 
 
         return res.status(200).json({
-            success: true,
+            thanh_cong: true,
 
             data: {
                 bo_tu: boTu[0],
@@ -70,8 +70,8 @@ const layDanhSachTu = async (req, res) => {
         console.error("Lỗi lấy danh sách từ:", error);
 
         return res.status(500).json({
-            success: false,
-            message: "Lỗi server"
+            thanh_cong: false,
+            thong_bao: "Lỗi server"
         });
     }
 };

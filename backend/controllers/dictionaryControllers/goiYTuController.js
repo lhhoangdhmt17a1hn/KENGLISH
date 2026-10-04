@@ -4,8 +4,8 @@ const goiYTu = async (req, res) => {
 
         if (!q || !q.trim()) {
             return res.status(400).json({
-                success: false,
-                message: "Vui lòng nhập từ cần tìm"
+                thanh_cong: false,
+                thong_bao: "Vui lòng nhập từ cần tìm"
             });
         }
 
@@ -18,7 +18,7 @@ const goiYTu = async (req, res) => {
         const data = await response.json();
 
         res.json({
-            success: true,
+            thanh_cong: true,
             suggestions: data.suggestions || []
         });
 
@@ -26,8 +26,8 @@ const goiYTu = async (req, res) => {
         console.error("Lỗi gợi ý từ:", error);
 
         res.status(500).json({
-            success: false,
-            message: "Không thể lấy gợi ý từ lúc này"
+            thanh_cong: false,
+            thong_bao: "Không thể lấy gợi ý từ lúc này"
         });
     }
 };

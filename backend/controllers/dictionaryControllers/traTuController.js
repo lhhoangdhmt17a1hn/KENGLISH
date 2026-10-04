@@ -5,8 +5,8 @@ const traTu = async (req, res) => {
         // Kiểm tra từ cần tra
         if (!word || !word.trim()) {
             return res.status(400).json({
-                success: false,
-                message: "Vui lòng nhập từ cần tra"
+                thanh_cong: false,
+                thong_bao: "Vui lòng nhập từ cần tra"
             });
         }
 
@@ -22,8 +22,8 @@ const traTu = async (req, res) => {
         // Không tìm thấy từ
         if (!data.exists || !data.results || data.results.length === 0) {
             return res.status(404).json({
-                success: false,
-                message: "Không tìm thấy từ"
+                thanh_cong: false,
+                thong_bao: "Không tìm thấy từ"
             });
         }
 
@@ -45,7 +45,7 @@ const traTu = async (req, res) => {
             })) || [];
 
         res.json({
-            success: true,
+            thanh_cong: true,
             word: data.word,
             language: ketQua.lang_code,
             ipa: ipa,
@@ -59,8 +59,8 @@ const traTu = async (req, res) => {
         console.error("Lỗi tra từ:", error);
 
         res.status(500).json({
-            success: false,
-            message: "Không thể tra từ lúc này"
+            thanh_cong: false,
+            thong_bao: "Không thể tra từ lúc này"
         });
     }
 };
