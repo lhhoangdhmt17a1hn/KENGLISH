@@ -49,7 +49,6 @@ public class TrangChu extends Fragment {
      */
     private LinearLayout layoutTuDenHan;
 
-
     /*
      * Thông tin người dùng.
      */
@@ -451,43 +450,7 @@ public class TrangChu extends Fragment {
 
 
             item.setOnClickListener(v -> {
-
-                dongGoiY();
-
-
-                /*
-                 * Truyền từ được chọn
-                 * sang màn hình chi tiết.
-                 */
-                Bundle bundle =
-                        new Bundle();
-
-                bundle.putString(
-                        "tu",
-                        tu
-                );
-
-
-                ChiTietTu chiTietTu =
-                        new ChiTietTu();
-
-                chiTietTu.setArguments(
-                        bundle
-                );
-
-
-                /*
-                 * Mở Fragment chi tiết từ.
-                 */
-                requireActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(
-                                R.id.khung_noi_dung,
-                                chiTietTu
-                        )
-                        .addToBackStack(null)
-                        .commit();
+                moChiTietTu(tu);
             });
 
 
@@ -565,7 +528,6 @@ public class TrangChu extends Fragment {
         );
     }
 
-
     /**
      * Dọn Handler và PopupWindow
      * khi Fragment bị hủy View.
@@ -575,14 +537,12 @@ public class TrangChu extends Fragment {
 
         super.onDestroyView();
 
-
         if (runnableTimKiem != null) {
 
             handlerTimKiem.removeCallbacks(
                     runnableTimKiem
             );
         }
-
 
         dongGoiY();
     }
@@ -601,7 +561,6 @@ public class TrangChu extends Fragment {
                         null
                 );
 
-
         if (token == null) {
 
             khungLichSuTraTu.setVisibility(
@@ -610,7 +569,6 @@ public class TrangChu extends Fragment {
 
             return;
         }
-
 
         apiService
                 .layLichSuTraTu(
@@ -627,7 +585,6 @@ public class TrangChu extends Fragment {
                             return;
                         }
 
-
                         if (response.isSuccessful()
                                 && response.body() != null) {
 
@@ -642,7 +599,6 @@ public class TrangChu extends Fragment {
                             );
                         }
                     }
-
 
                     @Override
                     public void onFailure(
@@ -665,7 +621,6 @@ public class TrangChu extends Fragment {
 
         layoutLichSuTraTu.removeAllViews();
 
-
         if (danhSach == null
                 || danhSach.isEmpty()) {
 
@@ -676,17 +631,14 @@ public class TrangChu extends Fragment {
             return;
         }
 
-
         khungLichSuTraTu.setVisibility(
                 View.VISIBLE
         );
-
 
         for (int i = 0; i < danhSach.size(); i++) {
 
             LichSuTraTu lichSu =
                     danhSach.get(i);
-
 
             /*
              * Tạo dòng chứa từ.
@@ -695,7 +647,6 @@ public class TrangChu extends Fragment {
                     new TextView(
                             requireContext()
                     );
-
 
             txtTu.setText(
                     lichSu.getWord()
@@ -726,7 +677,6 @@ public class TrangChu extends Fragment {
                     0
             );
 
-
             LinearLayout.LayoutParams params =
                     new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -737,7 +687,6 @@ public class TrangChu extends Fragment {
                     params
             );
 
-
             /*
              * Bấm vào từ -> mở chi tiết.
              */
@@ -747,11 +696,9 @@ public class TrangChu extends Fragment {
                     )
             );
 
-
             layoutLichSuTraTu.addView(
                     txtTu
             );
-
 
             /*
              * Thêm đường kẻ giữa các từ.
@@ -771,7 +718,6 @@ public class TrangChu extends Fragment {
                         )
                 );
 
-
                 LinearLayout.LayoutParams dividerParams =
                         new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -790,7 +736,6 @@ public class TrangChu extends Fragment {
                         dividerParams
                 );
 
-
                 layoutLichSuTraTu.addView(
                         divider
                 );
@@ -802,6 +747,7 @@ public class TrangChu extends Fragment {
 
         dongGoiY();
 
+        edtTraTu.setText("");
 
         Bundle bundle =
                 new Bundle();
@@ -811,14 +757,12 @@ public class TrangChu extends Fragment {
                 tu
         );
 
-
         ChiTietTu chiTietTu =
                 new ChiTietTu();
 
         chiTietTu.setArguments(
                 bundle
         );
-
 
         requireActivity()
                 .getSupportFragmentManager()
@@ -837,7 +781,6 @@ public class TrangChu extends Fragment {
                 xoaLichSuTraTu()
         );
     }
-
 
     private void xoaLichSuTraTu() {
 
